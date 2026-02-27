@@ -147,7 +147,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8 flex-1">
                 {config.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm">
-                    <Check className="h-4 w-4 text-green-600 mt-0.5 shrink-0" />
+                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}

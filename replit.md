@@ -51,7 +51,15 @@ A mobile-first SaaS web app where landlords manage maintenance requests via QR c
 - Webhook route registered BEFORE express.json() middleware in server/index.ts
 - Users table has stripe_customer_id, stripe_subscription_id, subscription_tier columns
 
+## Design
+- Dark mode theme (always dark, no toggle): dark green-black backgrounds, white text, forest green accents
+- Primary color: forest green (HSL 148 55% 36%)
+- Logo: square logo with house/trees/tools; banner image for hero
+- Contact: support@tenant-track.com, (503) 380-6482, www.tenant-track.com
+- Custom domain: www.tenant-track.com (configured via Replit deployment settings)
+
 ## Notes
 - Object storage wildcard route uses regex syntax for Express 5 compatibility
 - Logo assets in `attached_assets/` imported via `@assets/` alias
 - Stripe connector handles API keys automatically (no manual .env needed)
+- Deployment configured as autoscale with `npm run build` + `npm run start`

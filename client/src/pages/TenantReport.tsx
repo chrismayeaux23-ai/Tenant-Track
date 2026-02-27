@@ -61,8 +61,8 @@ export default function TenantReport() {
 
   if (propError || !property) {
     return (
-      <div className="min-h-screen bg-muted/30 flex flex-col items-center justify-center p-6 text-center">
-        <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
+        <div className="bg-card p-8 rounded-3xl shadow-xl max-w-md w-full border border-border">
           <Wrench className="h-16 w-16 text-destructive mx-auto mb-4" />
           <h1 className="text-2xl font-display font-bold mb-2">Property Not Found</h1>
           <p className="text-muted-foreground mb-6">The QR code link is invalid or the property no longer exists.</p>
@@ -74,10 +74,10 @@ export default function TenantReport() {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-muted/30 flex flex-col items-center justify-center p-6 text-center">
-        <div className="bg-white p-10 rounded-[2rem] shadow-xl max-w-md w-full animate-in zoom-in-95 duration-500">
-          <div className="h-24 w-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="h-12 w-12 text-green-600" />
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
+        <div className="bg-card p-10 rounded-[2rem] shadow-xl max-w-md w-full animate-in zoom-in-95 duration-500 border border-border">
+          <div className="h-24 w-24 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="h-12 w-12 text-primary" />
           </div>
           <h1 className="text-3xl font-display font-bold mb-3" data-testid="text-success-title">Request Sent!</h1>
           <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
@@ -113,9 +113,8 @@ export default function TenantReport() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
-      {/* Mobile-optimized Header */}
-      <header className="bg-white border-b border-border sticky top-0 z-10 shadow-sm">
+    <div className="min-h-screen bg-background">
+      <header className="bg-card border-b border-border sticky top-0 z-10 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
           <div className="bg-primary/10 p-2 rounded-xl">
             <Wrench className="h-6 w-6 text-primary" />
@@ -128,12 +127,12 @@ export default function TenantReport() {
       </header>
 
       <main className="max-w-2xl mx-auto p-4 py-6 md:py-10">
-        <div className="bg-green-50 text-green-800 rounded-2xl p-4 flex gap-3 items-start mb-8 border border-green-200">
-          <Info className="h-5 w-5 mt-0.5 shrink-0 text-green-700" />
+        <div className="bg-primary/10 text-primary rounded-2xl p-4 flex gap-3 items-start mb-8 border border-primary/20">
+          <Info className="h-5 w-5 mt-0.5 shrink-0" />
           <p className="text-sm leading-relaxed">Please provide as much detail as possible. Uploading photos helps resolve the issue faster.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-border">
+        <form onSubmit={handleSubmit} className="space-y-8 bg-card p-6 sm:p-8 rounded-[2rem] shadow-sm border border-border">
           
           <div className="space-y-6">
             <h2 className="text-xl font-display font-bold border-b pb-2">Contact Info</h2>
@@ -189,7 +188,7 @@ export default function TenantReport() {
                       py-3 rounded-xl text-sm font-semibold border-2 transition-all active-elevate
                       ${formData.urgency === level 
                         ? level === 'Emergency' ? 'border-destructive bg-destructive/10 text-destructive'
-                        : level === 'Med' ? 'border-warning bg-warning/10 text-yellow-700'
+                        : level === 'Med' ? 'border-warning bg-warning/10 text-warning'
                         : 'border-primary bg-primary/10 text-primary'
                         : 'border-input bg-transparent text-muted-foreground hover:bg-muted'
                       }

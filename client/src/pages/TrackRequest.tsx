@@ -15,8 +15,8 @@ function TrackingResult({ data }: { data: TrackRequestResponse }) {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "Completed": return <CheckCircle2 className="h-5 w-5 text-green-600" />;
-      case "In-Progress": return <Clock className="h-5 w-5 text-yellow-600" />;
+      case "Completed": return <CheckCircle2 className="h-5 w-5 text-primary" />;
+      case "In-Progress": return <Clock className="h-5 w-5 text-warning" />;
       default: return <AlertTriangle className="h-5 w-5 text-primary" />;
     }
   };
@@ -53,8 +53,8 @@ function TrackingResult({ data }: { data: TrackRequestResponse }) {
       <div className="w-full bg-muted rounded-full h-2 mt-4">
         <div
           className={`h-2 rounded-full transition-all duration-700 ${
-            data.status === "Completed" ? "bg-green-500 w-full" :
-            data.status === "In-Progress" ? "bg-yellow-500 w-2/3" :
+            data.status === "Completed" ? "bg-primary w-full" :
+            data.status === "In-Progress" ? "bg-warning w-2/3" :
             "bg-primary w-1/3"
           }`}
           data-testid="progress-bar"
@@ -120,8 +120,8 @@ export default function TrackRequest() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-background">
-      <header className="bg-white dark:bg-card border-b border-border sticky top-0 z-10 shadow-sm">
+    <div className="min-h-screen bg-background">
+      <header className="bg-card border-b border-border sticky top-0 z-10 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
           <div className="bg-primary/10 p-2 rounded-xl">
             <Wrench className="h-6 w-6 text-primary" />
@@ -134,7 +134,7 @@ export default function TrackRequest() {
       </header>
 
       <main className="max-w-2xl mx-auto p-4 py-6 md:py-10">
-        <div className="bg-white dark:bg-card p-6 sm:p-8 rounded-[2rem] shadow-sm border border-border">
+        <div className="bg-card p-6 sm:p-8 rounded-[2rem] shadow-sm border border-border">
           <form onSubmit={handleSearch} className="flex gap-3 mb-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
