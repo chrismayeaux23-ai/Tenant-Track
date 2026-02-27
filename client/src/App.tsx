@@ -12,6 +12,7 @@ import Landing from "@/pages/Landing";
 import Dashboard from "@/pages/Dashboard";
 import Properties from "@/pages/Properties";
 import TenantReport from "@/pages/TenantReport";
+import PrintFlyer from "@/pages/PrintFlyer";
 
 // Protected Route Wrapper
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
@@ -48,6 +49,11 @@ function Router() {
     <Switch>
       {/* Public Tenant Route - Open to anyone with the QR code */}
       <Route path="/report/:propertyId" component={TenantReport} />
+      
+      {/* Printable Flyer Route */}
+      <Route path="/flyer/:propertyId">
+        <ProtectedRoute component={PrintFlyer} />
+      </Route>
       
       {/* Root handling based on auth state */}
       <Route path="/">

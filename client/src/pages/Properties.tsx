@@ -6,13 +6,15 @@ import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Dialog } from "@/components/ui/Dialog";
 import { QRCodeSVG } from "qrcode.react";
-import { Loader2, Plus, Building, MapPin, Download, QrCode } from "lucide-react";
+import { Loader2, Plus, Building, MapPin, Download, QrCode, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 
 export default function Properties() {
   const { data: properties, isLoading } = useProperties();
   const { mutate: createProperty, isPending: isCreating } = useCreateProperty();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [activeQR, setActiveQR] = useState<{id: number, name: string} | null>(null);
@@ -79,13 +81,24 @@ export default function Properties() {
               {property.address}
             </p>
             
-            <Button 
-              variant="outline" 
-              className="w-full"
-              onClick={() => setActiveQR({ id: property.id, name: property.name })}
-            >
-              <QrCode className="mr-2 h-4 w-4" /> View QR Code
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                className="flex-1"
+                onClick={() => setActiveQR({ id: property.id, name: property.name })}
+                data-testid={`button-view-qr-${property.id}`}
+              >
+                <QrCode className="mr-2 h-4 w-4" /> QR Code
+              </Button>
+              <Button 
+                variant="outline" 
+                className="flex-1"
+                onClick={() => setLocation(`/flyer/${property.id}`)}
+                data-testid={`button-print-flyer-${property.id}`}
+              >
+                <Printer className="mr-2 h-4 w-4" /> Print Flyer
+              </Button>
+            </div>
           </div>
         ))}
 
