@@ -19,14 +19,21 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     { name: "Pricing", href: "/pricing", icon: CreditCard },
   ];
 
+  const bottomNav = [
+    { name: "Requests", href: "/", icon: ClipboardList },
+    { name: "Properties", href: "/properties", icon: Building2 },
+    { name: "Tenants", href: "/tenants", icon: UserCircle },
+    { name: "More", href: "__menu__", icon: Menu },
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <div className="md:hidden flex items-center justify-between p-4 bg-card border-b border-border sticky top-0 z-40">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2" data-testid="link-mobile-home">
           <img src={logoPng} alt="TenantTrack Logo" className="h-8 w-8 object-contain rounded-lg" />
           <span className="font-display font-bold text-xl">TenantTrack</span>
-        </div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2">
+        </Link>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2" data-testid="button-mobile-menu">
           {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
@@ -85,9 +92,41 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full">
+      <main className="flex-1 min-w-0 p-4 md:p-8 lg:p-10 pb-24 md:pb-10 max-w-7xl mx-auto w-full">
         {children}
       </main>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border md:hidden" data-testid="nav-bottom-bar">
+        <div className="flex items-center justify-around py-2">
+          {bottomNav.map((item) => {
+            if (item.href === "__menu__") {
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="flex flex-col items-center gap-1 px-3 py-1 text-muted-foreground"
+                  data-testid="button-bottom-more"
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span className="text-xs">{item.name}</span>
+                </button>
+              );
+            }
+            const isActive = location === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`flex flex-col items-center gap-1 px-3 py-1 ${isActive ? "text-primary" : "text-muted-foreground"}`}
+                data-testid={`button-bottom-${item.name.toLowerCase()}`}
+              >
+                <item.icon className={`h-5 w-5 ${isActive ? "text-primary" : ""}`} />
+                <span className="text-xs font-medium">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
       {isMobileMenuOpen && (
         <div 

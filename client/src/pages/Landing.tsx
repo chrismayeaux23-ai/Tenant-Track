@@ -37,14 +37,12 @@ export default function Landing() {
               Generate QR codes for your properties. Tenants scan, snap a photo, and report issues instantly without downloading an app. You manage everything from a beautiful dashboard.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto rounded-full text-lg shadow-xl shadow-primary/20" onClick={() => window.location.href = '/api/login'}>
+              <Button size="lg" className="w-full sm:w-auto rounded-full text-lg shadow-xl shadow-primary/20" onClick={() => window.location.href = '/api/login'} data-testid="button-get-started">
                 Get Started for Free
               </Button>
-              <a href="https://www.tenant-track.com" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-full text-lg border-border">
-                  Visit tenant-track.com
-                </Button>
-              </a>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-full text-lg border-border" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} data-testid="button-see-features">
+                See How It Works
+              </Button>
             </div>
           </div>
           
@@ -59,7 +57,7 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="mt-32 grid md:grid-cols-3 gap-8">
+        <div id="features" className="mt-32 grid md:grid-cols-3 gap-8">
           {[
             {
               icon: QrCode,
@@ -104,9 +102,9 @@ export default function Landing() {
                 <Phone className="h-4 w-4" />
                 (503) 380-6482
               </a>
-              <a href="https://www.tenant-track.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" data-testid="link-website">
-                www.tenant-track.com
-              </a>
+              <Link href="/pricing" className="hover:text-primary transition-colors" data-testid="link-pricing">
+                View Pricing
+              </Link>
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
