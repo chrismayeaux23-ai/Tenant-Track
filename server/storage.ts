@@ -25,6 +25,8 @@ export interface IStorage {
   createRequest(request: InsertMaintenanceRequest): Promise<MaintenanceRequest>;
   updateRequestStatus(id: number, status: string): Promise<MaintenanceRequest>;
 
+  deleteRequest(id: number): Promise<void>;
+
   getStaff(landlordId: string): Promise<MaintenanceStaff[]>;
   createStaff(staff: InsertMaintenanceStaff): Promise<MaintenanceStaff>;
   deleteStaff(id: number): Promise<void>;
@@ -97,6 +99,12 @@ export class DatabaseStorage implements IStorage {
   async updateRequestStatus(id: number, status: string): Promise<MaintenanceRequest> {
     const [request] = await db.update(maintenanceRequests).set({ status }).where(eq(maintenanceRequests.id, id)).returning();
     return request;
+  }
+
+  async deleteRequest(id: number): Promise<void> {
+    await db.delete(repairCosts).where(eq(repairCosts.requestId, id));
+    await db.delete(requestNotes).where(eq(requestNotes.requestId, id));
+    await db.delete(maintenanceRequests).where(eq(maintenanceRequests.id, id));
   }
 
   async getStaff(landlordId: string): Promise<MaintenanceStaff[]> {

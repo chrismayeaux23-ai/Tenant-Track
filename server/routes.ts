@@ -110,6 +110,21 @@ export async function registerRoutes(
     }
   });
 
+  app.delete('/api/requests/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const landlordRequests = await storage.getRequestsByLandlord(userId);
+      const ownedRequest = landlordRequests.find(r => r.id === Number(req.params.id));
+      if (!ownedRequest) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+      await storage.deleteRequest(Number(req.params.id));
+      res.json({ message: "Request deleted" });
+    } catch (err) {
+      res.status(500).json({ message: "Failed to delete request" });
+    }
+  });
+
   app.get(api.staff.list.path, isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;

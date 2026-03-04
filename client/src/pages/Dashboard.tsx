@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import { useUpdateRequestStatus } from "@/hooks/use-requests";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Loader2, AlertCircle, Phone, Mail, MapPin, Search, UserCheck, MessageSquare, Send, ClipboardList, AlertTriangle, CheckCircle2, Clock, DollarSign, Trash2 } from "lucide-react";
+import { Loader2, AlertCircle, Phone, Mail, MapPin, Search, UserCheck, MessageSquare, Send, ClipboardList, AlertTriangle, CheckCircle2, Clock, DollarSign, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 
 interface DashboardStats {
@@ -227,11 +227,28 @@ export default function Dashboard() {
   const { mutate: updateStatus, isPending: isUpdating } = useUpdateRequestStatus();
   const { mutate: assignRequest } = useAssignRequest();
   const { data: stats } = useQuery<DashboardStats>({ queryKey: ["/api/dashboard/stats"] });
+  const queryClient = useQueryClient();
   
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
-  const [expandedNotes, setExpandedNotes] = useState<Set<number>>(new Set());
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+
+  const deleteRequest = useMutation({
+    mutationFn: async (id: number) => {
+      const res = await fetch(`/api/requests/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Failed to delete request");
+    },
+    onSuccess: () => {
+      setDeleteConfirm(null);
+      queryClient.invalidateQueries({ queryKey: ["/api/requests"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dashboard/stats"] });
+    },
+  });
 
   if (reqLoading || propLoading) {
     return (
@@ -286,8 +303,8 @@ export default function Dashboard() {
     filteredRequests = filteredRequests.filter(r => r.status === statusFilter);
   }
 
-  const toggleNotes = (id: number) => {
-    setExpandedNotes(prev => {
+  const toggleCard = (id: number) => {
+    setExpandedCards(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -360,6 +377,7 @@ export default function Dashboard() {
               className="pl-10 w-full sm:w-64 bg-card"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              data-testid="input-search-requests"
             />
           </div>
           <Select 
@@ -372,6 +390,7 @@ export default function Dashboard() {
               { label: "Completed", value: "Completed" }
             ]}
             className="w-full sm:w-48 bg-card"
+            data-testid="select-status-filter"
           />
         </div>
       </div>
@@ -387,115 +406,173 @@ export default function Dashboard() {
           </p>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {filteredRequests.map((request) => (
-            <div key={request.id} className="bg-card rounded-2xl p-6 shadow-sm border border-border flex flex-col hover-elevate group transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex gap-2 flex-wrap">
-                  {getStatusBadge(request.status)}
-                  {getUrgencyBadge(request.urgency)}
-                  <Badge variant="outline">{request.issueType}</Badge>
-                </div>
-                <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">
-                  {request.createdAt ? format(new Date(request.createdAt), 'MMM d, h:mm a') : ''}
-                </span>
-              </div>
+        <div className="space-y-3">
+          {filteredRequests.map((request) => {
+            const isExpanded = expandedCards.has(request.id);
+            const staffName = getStaffName(request.assignedTo);
 
-              <div className="mb-4">
-                <h3 className="text-lg font-bold mb-1 line-clamp-1">{getPropertyName(request.propertyId)}</h3>
-                <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <MapPin className="h-3 w-3" /> Unit {request.unitNumber}
-                </p>
-              </div>
-
-              <div className="bg-muted/50 rounded-xl p-4 mb-5 flex-1">
-                <p className="text-sm font-medium text-foreground mb-1 line-clamp-3">{request.description}</p>
-              </div>
-
-              {request.photoUrls && request.photoUrls.length > 0 && (
-                <div className="flex gap-2 mb-5 overflow-x-auto pb-2 scrollbar-hide">
-                  {request.photoUrls.map((url, idx) => (
-                    <img 
-                      key={idx} 
-                      src={url} 
-                      alt="Issue" 
-                      className="h-16 w-16 rounded-lg object-cover cursor-pointer border border-border hover:opacity-80 transition-opacity flex-shrink-0"
-                      onClick={() => setSelectedImage(url)}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {request.trackingCode && (
-                <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
-                  <span>Tracking:</span>
-                  <code className="font-mono text-primary font-bold">{request.trackingCode}</code>
-                </div>
-              )}
-
-              <div className="mt-auto border-t border-border pt-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="text-sm font-bold">{request.tenantName}</p>
-                    <div className="flex gap-3 text-xs text-muted-foreground mt-1">
-                      <a href={`tel:${request.tenantPhone}`} className="flex items-center gap-1 hover:text-primary"><Phone className="h-3 w-3"/>{request.tenantPhone}</a>
-                      <a href={`mailto:${request.tenantEmail}`} className="flex items-center gap-1 hover:text-primary"><Mail className="h-3 w-3"/> Email</a>
+            return (
+              <div
+                key={request.id}
+                className="bg-card rounded-2xl border border-border shadow-sm transition-all"
+                data-testid={`request-card-${request.id}`}
+              >
+                <button
+                  className="w-full text-left p-4 md:p-5 flex items-center gap-4 cursor-pointer active:bg-muted/30 transition-colors rounded-2xl"
+                  onClick={() => toggleCard(request.id)}
+                  data-testid={`button-expand-request-${request.id}`}
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      {getStatusBadge(request.status)}
+                      {getUrgencyBadge(request.urgency)}
+                      <Badge variant="outline" className="text-xs">{request.issueType}</Badge>
+                      {staffName && (
+                        <span className="text-xs text-muted-foreground flex items-center gap-1 ml-1">
+                          <UserCheck className="h-3 w-3 text-primary" /> {staffName}
+                        </span>
+                      )}
                     </div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <h3 className="text-sm md:text-base font-bold truncate">{getPropertyName(request.propertyId)}</h3>
+                      <span className="text-xs text-muted-foreground flex items-center gap-0.5 shrink-0">
+                        <MapPin className="h-3 w-3" /> Unit {request.unitNumber}
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{request.description}</p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0"
-                    onClick={() => toggleNotes(request.id)}
-                    data-testid={`button-toggle-notes-${request.id}`}
-                  >
-                    <MessageSquare className={`h-4 w-4 ${expandedNotes.has(request.id) ? 'text-primary' : 'text-muted-foreground'}`} />
-                  </Button>
-                </div>
 
-                {getStaffName(request.assignedTo) && (
-                  <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground" data-testid={`text-assigned-staff-${request.id}`}>
-                    <UserCheck className="h-4 w-4 text-primary" />
-                    <span>Assigned to <strong className="text-foreground">{getStaffName(request.assignedTo)}</strong></span>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-xs text-muted-foreground hidden sm:block whitespace-nowrap">
+                      {request.createdAt ? format(new Date(request.createdAt), 'MMM d') : ''}
+                    </span>
+                    {isExpanded ? (
+                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                    )}
                   </div>
-                )}
+                </button>
 
-                <div className="flex gap-2">
-                  <Select 
-                    value={request.status}
-                    onChange={(e) => updateStatus({ id: request.id, data: { status: e.target.value } })}
-                    disabled={isUpdating}
-                    className="h-10 text-sm py-1 bg-muted border-none flex-1"
-                    options={[
-                      { label: "Mark New", value: "New" },
-                      { label: "Mark In-Progress", value: "In-Progress" },
-                      { label: "Mark Completed", value: "Completed" }
-                    ]}
-                    data-testid={`select-status-${request.id}`}
-                  />
-                  {staffList && staffList.length > 0 && (
-                    <Select
-                      value={String(request.assignedTo || 0)}
-                      onChange={(e) => {
-                        const staffId = parseInt(e.target.value);
-                        assignRequest({ requestId: request.id, staffId });
-                      }}
-                      className="h-10 text-sm py-1 bg-muted border-none flex-1"
-                      options={staffOptions}
-                      data-testid={`select-assign-${request.id}`}
-                    />
-                  )}
-                </div>
+                {isExpanded && (
+                  <div className="px-4 md:px-5 pb-5 border-t border-border pt-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="flex items-center justify-between mb-4 text-xs text-muted-foreground">
+                      <span>
+                        Submitted {request.createdAt ? format(new Date(request.createdAt), 'MMM d, yyyy — h:mm a') : ''}
+                      </span>
+                      {request.trackingCode && (
+                        <span className="flex items-center gap-1">
+                          Tracking: <code className="font-mono text-primary font-bold">{request.trackingCode}</code>
+                        </span>
+                      )}
+                    </div>
 
-                {expandedNotes.has(request.id) && (
-                  <>
+                    <div className="bg-muted/50 rounded-xl p-4 mb-4">
+                      <p className="text-sm text-foreground">{request.description}</p>
+                    </div>
+
+                    {request.photoUrls && request.photoUrls.length > 0 && (
+                      <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
+                        {request.photoUrls.map((url, idx) => (
+                          <img 
+                            key={idx} 
+                            src={url} 
+                            alt="Issue" 
+                            className="h-20 w-20 rounded-lg object-cover cursor-pointer border border-border hover:opacity-80 transition-opacity flex-shrink-0"
+                            onClick={() => setSelectedImage(url)}
+                            data-testid={`img-photo-${request.id}-${idx}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="border-t border-border pt-4 mb-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-bold">{request.tenantName}</p>
+                          <div className="flex gap-3 text-xs text-muted-foreground mt-1">
+                            <a href={`tel:${request.tenantPhone}`} className="flex items-center gap-1 hover:text-primary" data-testid={`link-phone-${request.id}`}>
+                              <Phone className="h-3 w-3"/>{request.tenantPhone}
+                            </a>
+                            <a href={`mailto:${request.tenantEmail}`} className="flex items-center gap-1 hover:text-primary" data-testid={`link-email-${request.id}`}>
+                              <Mail className="h-3 w-3"/> Email
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 mb-4">
+                      <Select 
+                        value={request.status}
+                        onChange={(e) => updateStatus({ id: request.id, data: { status: e.target.value } })}
+                        disabled={isUpdating}
+                        className="h-10 text-sm py-1 bg-muted border-none flex-1"
+                        options={[
+                          { label: "Mark New", value: "New" },
+                          { label: "Mark In-Progress", value: "In-Progress" },
+                          { label: "Mark Completed", value: "Completed" }
+                        ]}
+                        data-testid={`select-status-${request.id}`}
+                      />
+                      {staffList && staffList.length > 0 && (
+                        <Select
+                          value={String(request.assignedTo || 0)}
+                          onChange={(e) => {
+                            const staffId = parseInt(e.target.value);
+                            assignRequest({ requestId: request.id, staffId });
+                          }}
+                          className="h-10 text-sm py-1 bg-muted border-none flex-1"
+                          options={staffOptions}
+                          data-testid={`select-assign-${request.id}`}
+                        />
+                      )}
+                    </div>
+
                     <RequestNotes requestId={request.id} />
                     <RequestCosts requestId={request.id} />
-                  </>
+
+                    <div className="mt-4 pt-4 border-t border-border flex justify-end">
+                      {deleteConfirm === request.id ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-red-400">Delete this request and all its data?</span>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            className="h-8 px-3 text-xs"
+                            onClick={() => deleteRequest.mutate(request.id)}
+                            disabled={deleteRequest.isPending}
+                            data-testid={`button-confirm-delete-${request.id}`}
+                          >
+                            {deleteRequest.isPending ? <Loader2 className="h-3 w-3 animate-spin" /> : "Yes, Delete"}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 px-3 text-xs"
+                            onClick={() => setDeleteConfirm(null)}
+                            data-testid={`button-cancel-delete-${request.id}`}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-3 text-xs text-muted-foreground hover:text-red-400 gap-1"
+                          onClick={() => setDeleteConfirm(request.id)}
+                          data-testid={`button-delete-request-${request.id}`}
+                        >
+                          <Trash2 className="h-3 w-3" /> Delete Request
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

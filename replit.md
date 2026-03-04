@@ -69,6 +69,7 @@ A mobile-first SaaS web app where landlords manage maintenance requests via QR c
 - `PATCH /api/profile` - Update landlord profile (firstName, lastName, phone, companyName)
 - `GET /api/dashboard/stats` - Get dashboard analytics (total, new, in-progress, completed, emergencies)
 - `GET /api/tenants` - Get tenant directory (aggregated from requests)
+- `DELETE /api/requests/:id` - Delete a request (cascades: costs, notes, then request)
 - `GET /api/notes/:requestId` - Get notes for a request
 - `POST /api/notes/:requestId` - Add a note to a request
 - `GET /api/costs/report` - Get cost report (query: startDate, endDate, propertyId)
