@@ -8,13 +8,16 @@ import { Label } from "@/components/ui/Label";
 import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { PhotoUploadGroup } from "@/components/PhotoUploadGroup";
-import { Wrench, CheckCircle2, Loader2, Info } from "lucide-react";
+import { Wrench, CheckCircle2, Loader2, Info, Globe } from "lucide-react";
 import type { MaintenanceRequestInput } from "@shared/routes";
+import { type Lang, t } from "@/lib/i18n";
 
 export default function TenantReport() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const id = parseInt(propertyId || "0");
   const [, setLocation] = useLocation();
+  const [lang, setLang] = useState<Lang>("en");
+  const txt = t(lang).report;
   
   const { data: property, isLoading: propLoading, error: propError } = useProperty(id);
   const { mutate: submitRequest, isPending: isSubmitting } = useCreateRequest();
@@ -40,7 +43,7 @@ export default function TenantReport() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.issueType) {
-      alert("Please select an issue type.");
+      alert(txt.selectIssue);
       return;
     }
     submitRequest(formData, {
@@ -50,6 +53,18 @@ export default function TenantReport() {
       }
     });
   };
+
+  const langToggle = (
+    <button
+      type="button"
+      onClick={() => setLang(lang === "en" ? "es" : "en")}
+      className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/15"
+      data-testid="button-toggle-language"
+    >
+      <Globe className="h-4 w-4" />
+      {t(lang).lang.switch}
+    </button>
+  );
 
   if (propLoading) {
     return (
@@ -63,10 +78,11 @@ export default function TenantReport() {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
         <div className="bg-card p-8 rounded-3xl shadow-xl max-w-md w-full border border-border">
+          <div className="flex justify-end mb-4">{langToggle}</div>
           <Wrench className="h-16 w-16 text-destructive mx-auto mb-4" />
-          <h1 className="text-2xl font-display font-bold mb-2">Property Not Found</h1>
-          <p className="text-muted-foreground mb-6">The QR code link is invalid or the property no longer exists.</p>
-          <Button onClick={() => setLocation('/')} className="w-full">Return Home</Button>
+          <h1 className="text-2xl font-display font-bold mb-2">{txt.propertyNotFound}</h1>
+          <p className="text-muted-foreground mb-6">{txt.propertyNotFoundDesc}</p>
+          <Button onClick={() => setLocation('/')} className="w-full">{txt.returnHome}</Button>
         </div>
       </div>
     );
@@ -79,16 +95,16 @@ export default function TenantReport() {
           <div className="h-24 w-24 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="h-12 w-12 text-primary" />
           </div>
-          <h1 className="text-3xl font-display font-bold mb-3" data-testid="text-success-title">Request Sent!</h1>
+          <h1 className="text-3xl font-display font-bold mb-3" data-testid="text-success-title">{txt.successTitle}</h1>
           <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-            Your landlord has been notified about the issue at <strong>{property.name}</strong>, Unit {formData.unitNumber}.
+            {txt.successDesc} <strong>{property.name}</strong>, {txt.unit} {formData.unitNumber}.
           </p>
 
           {trackingCode && (
             <div className="bg-muted/50 rounded-xl p-5 mb-6 border border-border">
-              <p className="text-sm text-muted-foreground mb-2">Your Tracking Code</p>
+              <p className="text-sm text-muted-foreground mb-2">{txt.trackingCodeLabel}</p>
               <p className="text-2xl font-mono font-bold tracking-widest text-foreground" data-testid="text-tracking-code">{trackingCode}</p>
-              <p className="text-xs text-muted-foreground mt-3">Save this code to check your request status anytime.</p>
+              <p className="text-xs text-muted-foreground mt-3">{txt.trackingCodeHelp}</p>
             </div>
           )}
 
@@ -100,17 +116,23 @@ export default function TenantReport() {
                 size="lg"
                 data-testid="link-track-request"
               >
-                Track My Request
+                {txt.trackMyRequest}
               </Button>
             )}
             <Button onClick={() => window.location.reload()} variant="outline" className="w-full rounded-xl" size="lg" data-testid="button-submit-another">
-              Submit Another Request
+              {txt.submitAnother}
             </Button>
           </div>
         </div>
       </div>
     );
   }
+
+  const urgencyLabels: Record<string, string> = {
+    Low: txt.low,
+    Med: txt.medium,
+    Emergency: txt.emergency,
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -119,67 +141,68 @@ export default function TenantReport() {
           <div className="bg-primary/10 p-2 rounded-xl">
             <Wrench className="h-6 w-6 text-primary" />
           </div>
-          <div>
-            <h1 className="font-display font-bold text-lg leading-tight text-foreground">Maintenance Request</h1>
+          <div className="flex-1">
+            <h1 className="font-display font-bold text-lg leading-tight text-foreground">{txt.headerTitle}</h1>
             <p className="text-xs font-medium text-muted-foreground">{property.name}</p>
           </div>
+          {langToggle}
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto p-4 py-6 md:py-10">
         <div className="bg-primary/10 text-primary rounded-2xl p-4 flex gap-3 items-start mb-8 border border-primary/20">
           <Info className="h-5 w-5 mt-0.5 shrink-0" />
-          <p className="text-sm leading-relaxed">Please provide as much detail as possible. Uploading photos helps resolve the issue faster.</p>
+          <p className="text-sm leading-relaxed">{txt.infoBanner}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8 bg-card p-6 sm:p-8 rounded-[2rem] shadow-sm border border-border">
           
           <div className="space-y-6">
-            <h2 className="text-xl font-display font-bold border-b pb-2">Contact Info</h2>
+            <h2 className="text-xl font-display font-bold border-b pb-2">{txt.contactInfo}</h2>
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="tenantName">Your Name</Label>
-                <Input id="tenantName" required value={formData.tenantName} onChange={e => handleChange("tenantName", e.target.value)} placeholder="John Doe" />
+                <Label htmlFor="tenantName">{txt.yourName}</Label>
+                <Input id="tenantName" required value={formData.tenantName} onChange={e => handleChange("tenantName", e.target.value)} placeholder={txt.namePlaceholder} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="unitNumber">Unit Number</Label>
-                <Input id="unitNumber" required value={formData.unitNumber} onChange={e => handleChange("unitNumber", e.target.value)} placeholder="e.g. 4B" />
+                <Label htmlFor="unitNumber">{txt.unitNumber}</Label>
+                <Input id="unitNumber" required value={formData.unitNumber} onChange={e => handleChange("unitNumber", e.target.value)} placeholder={txt.unitPlaceholder} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="tenantPhone">Phone Number</Label>
-                <Input id="tenantPhone" type="tel" required value={formData.tenantPhone} onChange={e => handleChange("tenantPhone", e.target.value)} placeholder="(555) 123-4567" />
+                <Label htmlFor="tenantPhone">{txt.phone}</Label>
+                <Input id="tenantPhone" type="tel" required value={formData.tenantPhone} onChange={e => handleChange("tenantPhone", e.target.value)} placeholder={txt.phonePlaceholder} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="tenantEmail">Email Address</Label>
-                <Input id="tenantEmail" type="email" required value={formData.tenantEmail} onChange={e => handleChange("tenantEmail", e.target.value)} placeholder="john@example.com" />
+                <Label htmlFor="tenantEmail">{txt.email}</Label>
+                <Input id="tenantEmail" type="email" required value={formData.tenantEmail} onChange={e => handleChange("tenantEmail", e.target.value)} placeholder={txt.emailPlaceholder} />
               </div>
             </div>
           </div>
 
           <div className="space-y-6 pt-4">
-            <h2 className="text-xl font-display font-bold border-b pb-2">Issue Details</h2>
+            <h2 className="text-xl font-display font-bold border-b pb-2">{txt.issueDetails}</h2>
             
             <div className="space-y-2">
-              <Label htmlFor="issueType">Type of Issue</Label>
+              <Label htmlFor="issueType">{txt.issueType}</Label>
               <Select 
                 id="issueType"
                 required
                 value={formData.issueType}
                 onChange={e => handleChange("issueType", e.target.value)}
                 options={[
-                  { label: "Plumbing", value: "Plumbing" },
-                  { label: "HVAC (Heating/Cooling)", value: "HVAC" },
-                  { label: "Electrical", value: "Electrical" },
-                  { label: "Appliances", value: "Appliances" },
-                  { label: "Miscellaneous", value: "Misc" }
+                  { label: txt.plumbing, value: "Plumbing" },
+                  { label: txt.hvac, value: "HVAC" },
+                  { label: txt.electrical, value: "Electrical" },
+                  { label: txt.appliances, value: "Appliances" },
+                  { label: txt.misc, value: "Misc" }
                 ]}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Urgency Level</Label>
+              <Label>{txt.urgency}</Label>
               <div className="grid grid-cols-3 gap-3">
-                {["Low", "Med", "Emergency"].map((level) => (
+                {(["Low", "Med", "Emergency"] as const).map((level) => (
                   <button
                     key={level}
                     type="button"
@@ -194,26 +217,26 @@ export default function TenantReport() {
                       }
                     `}
                   >
-                    {level === 'Med' ? 'Medium' : level}
+                    {urgencyLabels[level]}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">{txt.description}</Label>
               <Textarea 
                 id="description" 
                 required 
                 value={formData.description}
                 onChange={e => handleChange("description", e.target.value)}
-                placeholder="Please describe what is happening in detail..."
+                placeholder={txt.descriptionPlaceholder}
                 className="h-32"
               />
             </div>
 
             <div className="space-y-3">
-              <Label>Photos (Optional, max 3)</Label>
+              <Label>{txt.photos}</Label>
               <PhotoUploadGroup 
                 maxPhotos={3} 
                 value={formData.photoUrls || []} 
@@ -229,10 +252,10 @@ export default function TenantReport() {
               className="w-full text-lg rounded-2xl h-16 shadow-xl shadow-primary/25" 
               isLoading={isSubmitting}
             >
-              Submit Request
+              {txt.submit}
             </Button>
             <p className="text-center text-xs text-muted-foreground mt-4">
-              By submitting, you agree to allow maintenance staff to contact you regarding this issue.
+              {txt.disclaimer}
             </p>
           </div>
         </form>

@@ -4,14 +4,16 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
-import { Loader2, Wrench, Search, CheckCircle2, Clock, AlertTriangle, MapPin, Calendar, MessageSquare, Send } from "lucide-react";
+import { Loader2, Wrench, Search, CheckCircle2, Clock, AlertTriangle, MapPin, Calendar, MessageSquare, Send, Globe } from "lucide-react";
 import { format } from "date-fns";
 import type { TrackRequestResponse } from "@shared/routes";
+import { type Lang, t } from "@/lib/i18n";
 
-function MessageThread({ trackingCode }: { trackingCode: string }) {
+function MessageThread({ trackingCode, lang }: { trackingCode: string; lang: Lang }) {
   const [content, setContent] = useState("");
   const queryClient = useQueryClient();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const txt = t(lang).track;
 
   const { data: messages, isLoading } = useQuery<any[]>({
     queryKey: ["/api/requests/track", trackingCode, "messages"],
@@ -49,7 +51,7 @@ function MessageThread({ trackingCode }: { trackingCode: string }) {
     <div className="mt-6 pt-6 border-t border-border">
       <div className="flex items-center gap-2 mb-4">
         <MessageSquare className="h-4 w-4 text-primary" />
-        <h3 className="font-bold text-sm text-foreground">Messages</h3>
+        <h3 className="font-bold text-sm text-foreground">{txt.messagesTitle}</h3>
         {(messages || []).length > 0 && (
           <Badge variant="outline" className="text-[10px]">{(messages || []).length}</Badge>
         )}
@@ -64,7 +66,7 @@ function MessageThread({ trackingCode }: { trackingCode: string }) {
           {(messages || []).length === 0 && (
             <div className="text-center py-6">
               <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground">No messages yet. Send a message to your landlord about this request.</p>
+              <p className="text-xs text-muted-foreground">{txt.noMessages}</p>
             </div>
           )}
           {(messages || []).map((msg: any) => (
@@ -90,7 +92,7 @@ function MessageThread({ trackingCode }: { trackingCode: string }) {
 
       <div className="flex gap-2">
         <Input
-          placeholder="Type a message..."
+          placeholder={txt.messagePlaceholder}
           className="text-sm h-10"
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -111,9 +113,11 @@ function MessageThread({ trackingCode }: { trackingCode: string }) {
   );
 }
 
-function TrackingResult({ data, trackingCode }: { data: TrackRequestResponse; trackingCode: string }) {
-  const statusSteps = ["New", "In-Progress", "Completed"];
-  const currentStep = statusSteps.indexOf(data.status);
+function TrackingResult({ data, trackingCode, lang }: { data: TrackRequestResponse; trackingCode: string; lang: Lang }) {
+  const txt = t(lang).track;
+  const statusSteps = [txt.new, txt.inProgress, txt.completed];
+  const statusMap: Record<string, number> = { "New": 0, "In-Progress": 1, "Completed": 2 };
+  const currentStep = statusMap[data.status] ?? 0;
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -125,17 +129,24 @@ function TrackingResult({ data, trackingCode }: { data: TrackRequestResponse; tr
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "Completed": return <Badge variant="success" data-testid="badge-status">Completed</Badge>;
-      case "In-Progress": return <Badge variant="warning" data-testid="badge-status">In Progress</Badge>;
-      default: return <Badge variant="default" data-testid="badge-status">New</Badge>;
+      case "Completed": return <Badge variant="success" data-testid="badge-status">{txt.completed}</Badge>;
+      case "In-Progress": return <Badge variant="warning" data-testid="badge-status">{txt.inProgress}</Badge>;
+      default: return <Badge variant="default" data-testid="badge-status">{txt.new}</Badge>;
     }
   };
 
+  const urgencyLabels: Record<string, string> = {
+    Emergency: lang === "es" ? "Emergencia" : "Emergency",
+    Med: lang === "es" ? "Medio" : "Medium",
+    Low: lang === "es" ? "Bajo" : "Low",
+  };
+
   const getUrgencyBadge = (urgency: string) => {
+    const label = urgencyLabels[urgency] || urgency;
     switch (urgency) {
-      case "Emergency": return <Badge variant="destructive" data-testid="badge-urgency">Emergency</Badge>;
-      case "Med": return <Badge variant="warning" data-testid="badge-urgency">Medium</Badge>;
-      default: return <Badge variant="default" data-testid="badge-urgency">Low</Badge>;
+      case "Emergency": return <Badge variant="destructive" data-testid="badge-urgency">{label}</Badge>;
+      case "Med": return <Badge variant="warning" data-testid="badge-urgency">{label}</Badge>;
+      default: return <Badge variant="default" data-testid="badge-urgency">{label}</Badge>;
     }
   };
 
@@ -172,7 +183,7 @@ function TrackingResult({ data, trackingCode }: { data: TrackRequestResponse; tr
         <div className="flex items-start gap-3">
           <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
           <div>
-            <p className="text-sm text-muted-foreground">Unit</p>
+            <p className="text-sm text-muted-foreground">{txt.unitLabel}</p>
             <p className="font-medium" data-testid="text-unit">{data.unitNumber}</p>
           </div>
         </div>
@@ -181,19 +192,19 @@ function TrackingResult({ data, trackingCode }: { data: TrackRequestResponse; tr
           <div className="flex items-start gap-3">
             <Calendar className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
             <div>
-              <p className="text-sm text-muted-foreground">Submitted</p>
+              <p className="text-sm text-muted-foreground">{txt.submittedLabel}</p>
               <p className="font-medium" data-testid="text-date">{format(new Date(data.createdAt), "MMMM d, yyyy 'at' h:mm a")}</p>
             </div>
           </div>
         )}
 
         <div className="bg-muted/50 rounded-xl p-4">
-          <p className="text-sm text-muted-foreground mb-1">Description</p>
+          <p className="text-sm text-muted-foreground mb-1">{txt.descriptionLabel}</p>
           <p className="text-sm font-medium" data-testid="text-description">{data.description}</p>
         </div>
       </div>
 
-      <MessageThread trackingCode={trackingCode} />
+      <MessageThread trackingCode={trackingCode} lang={lang} />
     </div>
   );
 }
@@ -202,6 +213,8 @@ export default function TrackRequest() {
   const { code } = useParams<{ code: string }>();
   const [inputCode, setInputCode] = useState(code || "");
   const [searchCode, setSearchCode] = useState(code || "");
+  const [lang, setLang] = useState<Lang>("en");
+  const txt = t(lang).track;
 
   const { data, isLoading, error } = useQuery<TrackRequestResponse>({
     queryKey: ["/api/requests/track", searchCode],
@@ -223,6 +236,18 @@ export default function TrackRequest() {
     setSearchCode(inputCode.trim());
   };
 
+  const langToggle = (
+    <button
+      type="button"
+      onClick={() => setLang(lang === "en" ? "es" : "en")}
+      className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/15"
+      data-testid="button-toggle-language"
+    >
+      <Globe className="h-4 w-4" />
+      {t(lang).lang.switch}
+    </button>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <header className="bg-card border-b border-border sticky top-0 z-10 shadow-sm">
@@ -230,10 +255,11 @@ export default function TrackRequest() {
           <div className="bg-primary/10 p-2 rounded-xl">
             <Wrench className="h-6 w-6 text-primary" />
           </div>
-          <div>
-            <h1 className="font-display font-bold text-lg leading-tight text-foreground">Track Your Request</h1>
-            <p className="text-xs font-medium text-muted-foreground">Check status and message your landlord</p>
+          <div className="flex-1">
+            <h1 className="font-display font-bold text-lg leading-tight text-foreground">{txt.headerTitle}</h1>
+            <p className="text-xs font-medium text-muted-foreground">{txt.headerSubtitle}</p>
           </div>
+          {langToggle}
         </div>
       </header>
 
@@ -243,14 +269,14 @@ export default function TrackRequest() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Enter your tracking code..."
+                placeholder={txt.searchPlaceholder}
                 value={inputCode}
                 onChange={(e) => setInputCode(e.target.value)}
                 className="pl-10"
                 data-testid="input-tracking-code"
               />
             </div>
-            <Button type="submit" data-testid="button-track">Track</Button>
+            <Button type="submit" data-testid="button-track">{txt.trackButton}</Button>
           </form>
 
           {isLoading && (
@@ -264,23 +290,23 @@ export default function TrackRequest() {
               <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search className="h-10 w-10 text-muted-foreground" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Request Not Found</h3>
+              <h3 className="text-xl font-bold mb-2">{txt.notFoundTitle}</h3>
               <p className="text-muted-foreground max-w-sm mx-auto">
-                We couldn't find a request with that tracking code. Please double-check the code and try again.
+                {txt.notFoundDesc}
               </p>
             </div>
           )}
 
-          {data && !isLoading && <TrackingResult data={data} trackingCode={searchCode} />}
+          {data && !isLoading && <TrackingResult data={data} trackingCode={searchCode} lang={lang} />}
 
           {!searchCode && !isLoading && (
             <div className="text-center py-12">
               <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search className="h-10 w-10 text-muted-foreground" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Enter Your Tracking Code</h3>
+              <h3 className="text-xl font-bold mb-2">{txt.enterCodeTitle}</h3>
               <p className="text-muted-foreground max-w-sm mx-auto">
-                Enter the tracking code you received when submitting your maintenance request.
+                {txt.enterCodeDesc}
               </p>
             </div>
           )}
