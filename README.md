@@ -113,6 +113,37 @@ It can be deployed on any standard Node hosting provider.
 
 ---
 
+## Screenshots
+
+### Landing Page
+![Landing Page](screenshots/ScreenshotLanding.png)
+
+### Pricing
+![Pricing](screenshots/Screenshot_Pricing.png)
+
+### Property Management
+![Property List](screenshots/Screenshot_PropertyList.png)
+
+### Maintenance Requests
+![Requests List](screenshots/Screenshot_RequestsList.png)
+
+### Tenants Management
+![Tenants List](screenshots/Screenshot_TenantsList.png)
+
+### Staff Management
+![Staff List](screenshots/Screenshot_StaffList.png)
+
+### Cost Tracking
+![Cost Tracking](screenshots/Screenshot_CostTracking.png)
+
+### Task Reminders
+![Task Reminders](screenshots/Screenshot_TaskReminders.png)
+
+### Tenant QR Code Access
+![Tenant QR Code](screenshots/Screenshot_QRcodeTenantSide.png)
+
+---
+
 ## Demo Access
 
 A demo account may be configured for demonstration purposes.
