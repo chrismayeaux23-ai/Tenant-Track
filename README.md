@@ -6,6 +6,14 @@ The system allows tenants to submit maintenance issues while landlords track req
 
 ---
 
+## Product Walkthrough
+
+Watch a quick demo of Tenant Track:
+
+[![Tenant Track Demo](https://img.youtube.com/vi/3Y8qK9X28ko/0.jpg)](https://www.youtube.com/watch?v=3Y8qK9X28ko)
+
+---
+
 ## Live Demo
 
 You can explore the platform using the demo credentials below:
