@@ -86,30 +86,35 @@ Integrations
 
 ## Installation
 
-Clone the repository
+Clone the repository:
 
-git clone https://github.com/chrismayeaux23-ai/Tenant-Management-Hub.git
+```bash
+git clone https://github.com/chrismayeaux23-ai/Tenant-Track.git
+```
 
+Navigate into the project folder:
 
-Navigate to the project directory
-
+```bash
 cd Tenant-Track
+```
 
+Install dependencies:
 
-Install dependencies
-
+```bash
 npm install
+```
 
+Create your environment variables file:
 
-Create environment variables
-
+```bash
 cp .env.example .env
+```
 
+Start the development server:
 
-Start the development server
-
+```bash
 npm run dev
-
+```
 
 ---
 
