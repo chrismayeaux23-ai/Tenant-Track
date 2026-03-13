@@ -27,7 +27,6 @@ Password: demo123
 
 The following sections explain how TenantTrack works and how it helps landlords manage maintenance efficiently.
 
----
 
 ## Who TenantTrack Is Built For
 
