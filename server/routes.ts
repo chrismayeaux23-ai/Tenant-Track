@@ -11,6 +11,8 @@ import { users } from "@shared/models/auth";
 import { eq, sql, desc, and, gte, lte } from "drizzle-orm";
 import { properties, maintenanceRequests, repairCosts, recurringTasks, requestNotes, maintenanceStaff } from "@shared/schema";
 import { authStorage } from "./replit_integrations/auth/storage";
+import bcrypt from "bcryptjs";
+import { sendNewRequestEmail, sendStatusUpdateEmail, sendStaffAssignmentEmail } from "./emailService";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -79,8 +81,7 @@ export async function registerRoutes(
 
       const demoUser = {
         claims: { sub: DEMO_USER_ID, email: DEMO_EMAIL, first_name: "Demo", last_name: "Landlord" },
-        expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
-        access_token: "demo-token",
+        isLocalAuth: true,
       };
 
       req.login(demoUser, (err: any) => {
@@ -93,6 +94,86 @@ export async function registerRoutes(
     } catch (err) {
       console.error("Demo login error:", err);
       res.status(500).json({ message: "Demo login failed" });
+    }
+  });
+
+  // ── Email/Password Auth ─────────────────────────────────────────────────────
+
+  app.post("/api/auth/signup", async (req: any, res) => {
+    try {
+      const { email, password, firstName, lastName } = z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+        firstName: z.string().min(1),
+        lastName: z.string().min(1),
+      }).parse(req.body);
+
+      const existing = await db.select().from(users).where(eq(users.email, email)).limit(1);
+      if (existing.length > 0) {
+        return res.status(400).json({ message: "An account with this email already exists." });
+      }
+
+      const passwordHash = await bcrypt.hash(password, 12);
+      const newId = crypto.randomUUID();
+      const [newUser] = await db.insert(users).values({
+        id: newId,
+        email,
+        firstName,
+        lastName,
+        passwordHash,
+        subscriptionTier: "free",
+      }).returning();
+
+      const sessionUser = {
+        claims: { sub: newUser.id, email: newUser.email, first_name: newUser.firstName, last_name: newUser.lastName },
+        isLocalAuth: true,
+      };
+
+      req.login(sessionUser, (err: any) => {
+        if (err) return res.status(500).json({ message: "Login failed after signup." });
+        res.json({ success: true, user: { id: newUser.id, email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName } });
+      });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      console.error("Signup error:", err);
+      res.status(500).json({ message: "Signup failed. Please try again." });
+    }
+  });
+
+  app.post("/api/auth/signin", async (req: any, res) => {
+    try {
+      const { email, password } = z.object({
+        email: z.string().email(),
+        password: z.string().min(1),
+      }).parse(req.body);
+
+      const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+      if (!user || !user.passwordHash) {
+        return res.status(401).json({ message: "Invalid email or password." });
+      }
+
+      const valid = await bcrypt.compare(password, user.passwordHash);
+      if (!valid) {
+        return res.status(401).json({ message: "Invalid email or password." });
+      }
+
+      const sessionUser = {
+        claims: { sub: user.id, email: user.email, first_name: user.firstName, last_name: user.lastName },
+        isLocalAuth: true,
+      };
+
+      req.login(sessionUser, (err: any) => {
+        if (err) return res.status(500).json({ message: "Login failed." });
+        res.json({ success: true, user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName } });
+      });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      console.error("Signin error:", err);
+      res.status(500).json({ message: "Sign in failed. Please try again." });
     }
   });
 
@@ -173,6 +254,26 @@ export async function registerRoutes(
       
       const request = await storage.createRequest({ ...input, status: "New" });
       res.status(201).json(request);
+
+      // Fire-and-forget: email landlord about new request
+      (async () => {
+        try {
+          const [landlord] = await db.select().from(users).where(eq(users.id, prop.landlordId)).limit(1);
+          if (landlord?.email) {
+            await sendNewRequestEmail({
+              landlordEmail: landlord.email,
+              landlordName: `${landlord.firstName || ""} ${landlord.lastName || ""}`.trim() || "Landlord",
+              tenantName: request.tenantName,
+              propertyName: prop.name,
+              unitNumber: request.unitNumber,
+              issueType: request.issueType,
+              urgency: request.urgency,
+              description: request.description,
+              trackingCode: request.trackingCode,
+            });
+          }
+        } catch (e) { console.error("Email send error:", e); }
+      })();
     } catch (err) {
       if (err instanceof z.ZodError) {
         return res.status(400).json({
@@ -189,6 +290,24 @@ export async function registerRoutes(
       const input = api.requests.updateStatus.input.parse(req.body);
       const request = await storage.updateRequestStatus(Number(req.params.id), input.status);
       res.json(request);
+
+      // Fire-and-forget: email tenant about status update
+      (async () => {
+        try {
+          if (request.tenantEmail) {
+            const prop = await storage.getProperty(request.propertyId);
+            await sendStatusUpdateEmail({
+              tenantEmail: request.tenantEmail,
+              tenantName: request.tenantName,
+              propertyName: prop?.name || "Your property",
+              unitNumber: request.unitNumber,
+              issueType: request.issueType,
+              newStatus: request.status,
+              trackingCode: request.trackingCode,
+            });
+          }
+        } catch (e) { console.error("Email send error:", e); }
+      })();
     } catch (err) {
       if (err instanceof z.ZodError) {
         return res.status(400).json({
@@ -280,6 +399,26 @@ export async function registerRoutes(
       }
       const request = await storage.assignRequest(Number(req.params.id), input.staffId);
       res.json(request);
+
+      // Fire-and-forget: email staff member about assignment
+      (async () => {
+        try {
+          if (staffMember.email) {
+            const prop = await storage.getProperty(ownedRequest.propertyId);
+            await sendStaffAssignmentEmail({
+              staffEmail: staffMember.email,
+              staffName: staffMember.name,
+              propertyName: prop?.name || "The property",
+              unitNumber: ownedRequest.unitNumber,
+              issueType: ownedRequest.issueType,
+              urgency: ownedRequest.urgency,
+              description: ownedRequest.description,
+              tenantName: ownedRequest.tenantName,
+              tenantPhone: ownedRequest.tenantPhone,
+            });
+          }
+        } catch (e) { console.error("Email send error:", e); }
+      })();
     } catch (err) {
       if (err instanceof z.ZodError) {
         return res.status(400).json({

@@ -18,6 +18,18 @@ declare module "http" {
   }
 }
 
+async function runColumnMigrations() {
+  try {
+    const { Pool } = await import('pg');
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash varchar');
+    await pool.end();
+    console.log("Column migrations complete");
+  } catch (err) {
+    console.error("Column migration failed (non-fatal):", err);
+  }
+}
+
 async function ensureOwnerProTier() {
   try {
     const OWNER_ID = "55210273";
@@ -210,6 +222,7 @@ app.use((req, res, next) => {
     },
     () => {
       log(`serving on port ${port}`);
+      runColumnMigrations();
       ensureOwnerProTier();
       initStripe().catch((err) => {
         console.error('Stripe initialization failed (non-fatal):', err);

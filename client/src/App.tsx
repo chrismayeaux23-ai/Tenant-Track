@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/Landing";
+import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 import Properties from "@/pages/Properties";
 import TenantReport from "@/pages/TenantReport";
@@ -55,6 +56,7 @@ function Router() {
 
   return (
     <Switch>
+      <Route path="/login" component={Login} />
       <Route path="/report/:propertyId" component={TenantReport} />
       <Route path="/track/:code" component={TrackRequest} />
       <Route path="/track" component={TrackRequest} />

@@ -138,7 +138,7 @@ const TESTIMONIALS = [
 ];
 
 export default function Landing() {
-  const [showDemoLogin, setShowDemoLogin] = useState(false);
+  const [showDemoLogin, setShowDemoLogin] = useState(() => window.location.search.includes("demo=1"));
   const [demoEmail, setDemoEmail] = useState("landlord@test.com");
   const [demoPassword, setDemoPassword] = useState("demo123");
   const [showPassword, setShowPassword] = useState(false);
@@ -252,7 +252,7 @@ export default function Landing() {
               <LogIn className="h-4 w-4 mr-1.5" />
               Try Demo
             </Button>
-            <Button onClick={() => window.location.href = '/api/login'} className="rounded-full shadow-lg shadow-primary/20" data-testid="button-nav-login">
+            <Button onClick={() => window.location.href = '/login'} className="rounded-full shadow-lg shadow-primary/20" data-testid="button-nav-login">
               Landlord Login
             </Button>
           </div>
@@ -277,7 +277,7 @@ export default function Landing() {
               Generate QR codes for your properties. Tenants scan, snap a photo, and report issues instantly — no app download needed. You manage everything from one beautiful dashboard.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto rounded-full text-lg shadow-xl shadow-primary/20 gap-2" onClick={() => window.location.href = '/api/login'} data-testid="button-get-started">
+              <Button size="lg" className="w-full sm:w-auto rounded-full text-lg shadow-xl shadow-primary/20 gap-2" onClick={() => window.location.href = '/login'} data-testid="button-get-started">
                 Get Started Free
                 <ArrowRight className="h-5 w-5" />
               </Button>
@@ -524,7 +524,7 @@ export default function Landing() {
                   className="w-full rounded-xl"
                   variant={plan.highlight ? "default" : "outline"}
                   size="lg"
-                  onClick={() => window.location.href = '/api/login'}
+                  onClick={() => window.location.href = '/login'}
                   data-testid={`button-plan-${plan.tier}`}
                 >
                   Start Free Trial
@@ -544,7 +544,7 @@ export default function Landing() {
             Join landlords who've stopped chasing maintenance requests and started managing them. Set up in under 5 minutes.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="rounded-full text-lg shadow-xl shadow-primary/20 gap-2 px-8" onClick={() => window.location.href = '/api/login'} data-testid="button-cta-final">
+            <Button size="lg" className="rounded-full text-lg shadow-xl shadow-primary/20 gap-2 px-8" onClick={() => window.location.href = '/login'} data-testid="button-cta-final">
               Get Started Free
               <ArrowRight className="h-5 w-5" />
             </Button>

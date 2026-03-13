@@ -6,9 +6,10 @@ A mobile-first SaaS web app where landlords manage maintenance requests via QR c
 - **Frontend**: React + Tailwind CSS + Shadcn UI (Vite)
 - **Backend**: Express.js on port 5000
 - **Database**: PostgreSQL via Drizzle ORM
-- **Auth**: Replit Auth (landlord login)
+- **Auth**: Email/password login (primary) + Replit Auth (legacy/owner) — both use passport sessions
 - **Storage**: Replit Object Storage (tenant photo uploads)
 - **Payments**: Stripe (subscriptions with 14-day free trial)
+- **Email**: Resend (RESEND_API_KEY env var) — notifications for new requests, status updates, staff assignments
 
 ## Key Features
 - Landlords sign up, add properties (each generating a unique QR code)
@@ -49,7 +50,28 @@ A mobile-first SaaS web app where landlords manage maintenance requests via QR c
 - `client/src/components/layout/AppLayout.tsx` - Sidebar layout with Requests, Properties, Tenants, Staff, Costs, Scheduled, Billing, Pricing nav
 - `client/src/hooks/` - Auth, properties, requests, staff, upload, subscription hooks
 
+## Auth System
+- Login page: `/login` — email/password form with "Sign In" / "Create Account" tabs
+- Signup: POST /api/auth/signup (email, password, firstName, lastName) — creates user, hashes password with bcrypt, logs in
+- Signin: POST /api/auth/signin (email, password) — validates credentials, creates session
+- Demo login: POST /api/demo-login (landlord@test.com / demo123) — unchanged
+- Replit Auth: GET /api/login — still works for owner account (user ID 55210273)
+- isAuthenticated middleware updated to handle both `isLocalAuth: true` (email/password) and OIDC (Replit Auth) sessions
+- passwordHash column added to users table; ID generated with crypto.randomUUID() on signup
+- runColumnMigrations() runs on startup to add password_hash column in production
+- Landing page login buttons all redirect to /login (changed from /api/login)
+- "Try the demo" link on /login redirects to /?demo=1 which auto-opens demo modal
+
+## Email Notifications (server/emailService.ts)
+- Uses Resend SDK with RESEND_API_KEY env var (connect Resend integration to activate)
+- sendNewRequestEmail: fired when tenant submits request → email sent to landlord
+- sendStatusUpdateEmail: fired when request status changes → email sent to tenant (if tenantEmail set)
+- sendStaffAssignmentEmail: fired when staff assigned → email sent to staff member
+- FROM address: EMAIL_FROM env var or 'TenantTrack <notifications@tenant-track.com>'
+- All email sends are fire-and-forget (non-blocking, errors logged not thrown)
+
 ## Routes
+- `/login` - Email/password login and signup page (public)
 - `/` - Landing (unauthenticated) or Dashboard/Requests (authenticated)
 - `/properties` - Property management (protected)
 - `/tenants` - Tenant directory (protected)
