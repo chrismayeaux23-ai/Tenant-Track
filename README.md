@@ -23,9 +23,6 @@ Password: demo123
 
 ---
 
-# Feature Overview
-
-
 ## Who TenantTrack Is Built For
 
 ![Built For](screenshots/feature-built-for.png)
