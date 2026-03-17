@@ -12,6 +12,22 @@ import { Wrench, CheckCircle2, Loader2, Info, Globe } from "lucide-react";
 import type { MaintenanceRequestInput } from "@shared/routes";
 import { type Lang, t } from "@/lib/i18n";
 
+function PoweredBy() {
+  return (
+    <div className="mt-6 text-center">
+      <a
+        href="https://www.tenant-track.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+      >
+        <Wrench className="h-3 w-3" />
+        Powered by TenantTrack
+      </a>
+    </div>
+  );
+}
+
 export default function TenantReport() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const id = parseInt(propertyId || "0");
@@ -84,6 +100,7 @@ export default function TenantReport() {
           <p className="text-muted-foreground mb-6">{txt.propertyNotFoundDesc}</p>
           <Button onClick={() => setLocation('/')} className="w-full">{txt.returnHome}</Button>
         </div>
+        <PoweredBy />
       </div>
     );
   }
@@ -124,6 +141,7 @@ export default function TenantReport() {
             </Button>
           </div>
         </div>
+        <PoweredBy />
       </div>
     );
   }
@@ -260,6 +278,10 @@ export default function TenantReport() {
           </div>
         </form>
       </main>
+
+      <footer className="py-6 px-4">
+        <PoweredBy />
+      </footer>
     </div>
   );
 }

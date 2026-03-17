@@ -312,6 +312,18 @@ export default function TrackRequest() {
           )}
         </div>
       </main>
+
+      <footer className="py-6 px-4 text-center">
+        <a
+          href="https://www.tenant-track.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+        >
+          <Wrench className="h-3 w-3" />
+          Powered by TenantTrack
+        </a>
+      </footer>
     </div>
   );
 }
