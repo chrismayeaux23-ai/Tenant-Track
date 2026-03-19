@@ -6,6 +6,8 @@ import {
   Wrench, Building2, Star, Loader2, Users, ClipboardList, Zap
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { useSubscription } from "@/hooks/use-subscription";
+import { UpgradeBanner } from "@/components/UpgradeGate";
 
 interface AnalyticsData {
   statusSummary: { new: number; inProgress: number; completed: number; total: number };
@@ -69,6 +71,7 @@ function BarRow({ label, value, max, color = "bg-primary" }: { label: string; va
 }
 
 export default function Analytics() {
+  const { tier, can } = useSubscription();
   const { data, isLoading } = useQuery<AnalyticsData>({ queryKey: ["/api/analytics"] });
 
   if (isLoading) {
@@ -103,6 +106,8 @@ export default function Analytics() {
           </div>
           <p className="text-muted-foreground text-sm ml-12">Maintenance performance, vendor intelligence, and operational insights.</p>
         </div>
+
+        <UpgradeBanner feature="Advanced Analytics" requiredPlan="pro" currentPlan={tier as any} />
 
         {/* Top Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

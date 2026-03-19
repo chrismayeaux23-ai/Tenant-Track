@@ -680,9 +680,10 @@ export default function Dashboard() {
   const getUrgencyBadge = (urgency: string) => {
     switch(urgency) {
       case 'Emergency': return <Badge variant="destructive">Emergency</Badge>;
+      case 'High': return <Badge variant="destructive" className="bg-orange-500/20 text-orange-400 border-orange-500/30">High</Badge>;
       case 'Med':
       case 'Medium': return <Badge variant="warning">Medium</Badge>;
-      default: return <Badge variant="default">Low</Badge>;
+      default: return <Badge variant="outline">Low</Badge>;
     }
   };
 
@@ -735,6 +736,10 @@ export default function Dashboard() {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
   const dispatchCount = stats?.needsDispatch ?? 0;
+  const overdueCount = (requests || []).filter(r =>
+    r.createdAt && !["Completed", "Cancelled"].includes(r.status) &&
+    differenceInDays(new Date(), new Date(r.createdAt)) >= 7
+  ).length;
 
   return (
     <AppLayout>
@@ -832,6 +837,22 @@ export default function Dashboard() {
             </div>
           </Link>
         </div>
+      )}
+
+      {/* Overdue alert strip */}
+      {overdueCount > 0 && (
+        <button
+          onClick={() => setStatusFilter("All")}
+          className="w-full mb-5 flex items-center gap-3 bg-orange-500/8 border border-orange-500/25 rounded-2xl px-5 py-3 text-left hover:bg-orange-500/12 transition-colors"
+          data-testid="alert-overdue-strip"
+        >
+          <AlertTriangle className="h-4 w-4 text-orange-400 shrink-0" />
+          <span className="text-sm text-orange-300 font-medium">
+            {overdueCount} work order{overdueCount !== 1 ? "s" : ""} overdue
+          </span>
+          <span className="text-xs text-orange-400/60">— open for more than 7 days without resolution</span>
+          <span className="ml-auto text-xs text-orange-400 font-medium">View all →</span>
+        </button>
       )}
 
       {/* Trusted vendor strip */}
@@ -979,10 +1000,15 @@ export default function Dashboard() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{request.description}</p>
                   </div>
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     <span className="text-xs text-muted-foreground hidden sm:block whitespace-nowrap">
                       {request.createdAt ? format(new Date(request.createdAt), 'MMM d') : ''}
                     </span>
+                    <Link href={`/requests/${request.id}`} onClick={(e) => e.stopPropagation()}>
+                      <span className="p-1.5 rounded-lg text-muted-foreground/50 hover:text-primary hover:bg-primary/10 transition-colors flex items-center" data-testid={`link-request-detail-${request.id}`}>
+                        <ExternalLink className="h-4 w-4" />
+                      </span>
+                    </Link>
                     {isExpanded ? <ChevronUp className="h-5 w-5 text-muted-foreground" /> : <ChevronDown className="h-5 w-5 text-muted-foreground" />}
                   </div>
                 </button>

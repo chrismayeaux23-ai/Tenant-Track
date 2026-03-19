@@ -10,6 +10,8 @@ import { Loader2, DollarSign, TrendingUp, Wrench, Download, Building2, Trash2 } 
 import { format } from "date-fns";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useSubscription } from "@/hooks/use-subscription";
+import { UpgradeBanner } from "@/components/UpgradeGate";
 
 interface CostReportData {
   totalSpent: number;
@@ -33,6 +35,7 @@ interface CostReportData {
 }
 
 export default function CostTracking() {
+  const { tier } = useSubscription();
   const now = new Date();
   const [startDate, setStartDate] = useState(format(new Date(now.getFullYear(), now.getMonth(), 1), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(format(now, "yyyy-MM-dd"));
@@ -90,6 +93,8 @@ export default function CostTracking() {
         <h1 className="text-3xl font-display font-bold text-foreground" data-testid="text-cost-title">Cost Tracking</h1>
         <p className="text-muted-foreground mt-2">Track repair costs and generate reports for tax deductions.</p>
       </div>
+
+      <UpgradeBanner feature="Cost Tracking & Reports" requiredPlan="growth" currentPlan={tier as any} />
 
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex gap-2 flex-1">

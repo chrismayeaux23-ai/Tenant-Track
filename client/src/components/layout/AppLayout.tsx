@@ -7,6 +7,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { Button } from "../ui/Button";
+import { TrialBanner } from "@/components/TrialBanner";
 
 const NAV_GROUPS = [
   {
@@ -171,10 +172,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Main */}
-      <main className="flex-1 min-w-0 p-4 md:p-7 lg:p-9 pb-24 md:pb-9 max-w-7xl mx-auto w-full">
-        {children}
-      </main>
+      {/* Content area (right of sidebar) */}
+      <div className="flex-1 min-w-0 flex flex-col">
+        <TrialBanner />
+        <main className="p-4 md:p-7 lg:p-9 pb-24 md:pb-9 max-w-7xl mx-auto w-full">
+          {children}
+        </main>
+      </div>
 
       {/* Mobile bottom nav */}
       <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden" data-testid="nav-bottom-bar">

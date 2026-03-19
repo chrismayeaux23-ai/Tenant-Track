@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Dialog } from "@/components/ui/Dialog";
 import { Loader2, CalendarClock, Plus, CheckCircle2, Trash2, AlertTriangle, Clock, Building2 } from "lucide-react";
 import { format, isPast, addDays, isBefore } from "date-fns";
+import { useSubscription } from "@/hooks/use-subscription";
+import { UpgradeBanner } from "@/components/UpgradeGate";
 
 interface RecurringTask {
   id: number;
@@ -33,6 +35,7 @@ const FREQUENCY_LABELS: Record<string, string> = {
 };
 
 export default function RecurringMaintenance() {
+  const { tier } = useSubscription();
   const queryClient = useQueryClient();
   const { data: properties } = useProperties();
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -144,7 +147,7 @@ export default function RecurringMaintenance() {
 
   return (
     <AppLayout>
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-display font-bold text-foreground" data-testid="text-scheduled-title">Scheduled Maintenance</h1>
           <p className="text-muted-foreground mt-2">Set up recurring tasks to stay on top of preventive maintenance.</p>
@@ -154,6 +157,8 @@ export default function RecurringMaintenance() {
           Add Task
         </Button>
       </div>
+
+      <UpgradeBanner feature="Scheduled Maintenance" requiredPlan="pro" currentPlan={tier as any} />
 
       {isLoading ? (
         <div className="h-[40vh] flex items-center justify-center">
