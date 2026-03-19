@@ -324,7 +324,7 @@ export default function Pricing() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 py-12 bg-gradient-to-br from-primary/10 to-emerald-400/5 rounded-3xl border border-primary/20 px-8">
+        <div className="text-center mt-16 py-12 bg-gradient-to-br from-primary/10 to-rose-500/5 rounded-3xl border border-primary/20 px-8">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3">
             Ready to bring order to your maintenance chaos?
           </h2>

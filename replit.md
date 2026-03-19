@@ -1,6 +1,6 @@
-# TenantTrack
+# VendorTrust
 
-A mobile-first SaaS web app where landlords manage maintenance requests via QR codes.
+A mobile-first SaaS web app where landlords manage maintenance requests via QR codes, with full vendor trust scoring and dispatch coordination.
 
 ## Architecture
 - **Frontend**: React + Tailwind CSS + Shadcn UI (Vite)
@@ -10,6 +10,12 @@ A mobile-first SaaS web app where landlords manage maintenance requests via QR c
 - **Storage**: Replit Object Storage (tenant photo uploads)
 - **Payments**: Stripe (subscriptions with 14-day free trial)
 - **Email**: Resend (RESEND_API_KEY env var) — notifications for new requests, status updates, staff assignments
+
+## Design System
+- **Theme**: Dark navy + neon crimson — `--background: 226 32% 5%`, `--primary: 354 88% 62%`
+- **Display font**: Space Grotesk (headings), Inter (body)
+- **Sidebar**: Left-border active nav indicator (crimson), deep near-black sidebar background
+- **Semantic colors**: Green still used for "Completed/Excellent" status indicators; red (primary) for CTAs and UI accents
 
 ## Key Features
 - Landlords sign up, add properties (each generating a unique QR code)

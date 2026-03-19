@@ -70,7 +70,7 @@ const SLIDES = [
     title: "Sign Up & Add Your Properties",
     description: "Create your account in seconds. Add your rental properties with name and address — each one instantly gets its own unique QR code.",
     bullets: ["Takes under 5 minutes to set up", "Add unlimited units per property", "No technical knowledge needed"],
-    accent: "from-emerald-500/20 to-primary/10",
+    accent: "from-rose-500/15 to-primary/10",
     visual: "add-property",
   },
   {
@@ -151,7 +151,7 @@ const SLIDES = [
       "Completion notes, invoice numbers, materials recorded",
       "Activity log on every request — full paper trail",
     ],
-    accent: "from-primary/15 to-emerald-900/10",
+    accent: "from-primary/15 to-indigo-900/15",
     visual: "why-comparison",
   },
   {
@@ -181,7 +181,7 @@ const SLIDES = [
       "Upgrade or downgrade at any time",
       "All plans include QR codes, dashboard & email alerts",
     ],
-    accent: "from-emerald-500/20 to-blue-500/10",
+    accent: "from-rose-500/15 to-blue-500/10",
     visual: "pricing",
   },
 ];
@@ -834,7 +834,7 @@ export default function Landing() {
             </div>
             <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight text-foreground leading-[1.1] mb-6">
               Vendor Dispatch <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Built on Trust.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-rose-300">Built on Trust.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
               Know who to call, when they showed up, and what they did. VendorTrust scores every contractor automatically — so you dispatch with confidence, not guesswork.
@@ -865,7 +865,7 @@ export default function Landing() {
           </div>
 
           <div className="flex-1 w-full max-w-2xl animate-in fade-in zoom-in duration-1000">
-            <div className="relative p-2 bg-gradient-to-tr from-primary/20 to-emerald-400/10 rounded-[2.5rem] overflow-hidden">
+            <div className="relative p-2 bg-gradient-to-tr from-primary/20 to-rose-400/10 rounded-[2.5rem] overflow-hidden">
               <img
                 src={heroPng}
                 alt="VendorTrust Dashboard Preview"
@@ -1251,7 +1251,7 @@ export default function Landing() {
       </section>
 
       <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary/10 to-emerald-400/5 rounded-3xl p-12 md:p-16 border border-primary/20">
+        <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary/10 to-rose-500/5 rounded-3xl p-12 md:p-16 border border-primary/20">
           <h2 className="text-3xl md:text-5xl font-display font-extrabold text-foreground mb-4">
             Stop chasing vendors.<br className="hidden sm:block" /> Start managing maintenance.
           </h2>

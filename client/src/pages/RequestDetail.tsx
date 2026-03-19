@@ -389,7 +389,7 @@ export default function RequestDetail() {
                       Update Status
                     </Button>
                     {assignment.jobStatus !== "completed" && (
-                      <Button size="sm" className="h-8 text-xs bg-green-600 hover:bg-green-700 text-white gap-1" onClick={() => setShowProof(true)}>
+                      <Button size="sm" className="h-8 text-xs gap-1" onClick={() => setShowProof(true)}>
                         <CheckSquare className="h-3.5 w-3.5" />Mark Complete
                       </Button>
                     )}
@@ -444,7 +444,7 @@ export default function RequestDetail() {
                       </div>
                       <Input value={materialsUsed} onChange={e => setMaterialsUsed(e.target.value)} className="h-9 text-sm" placeholder="Materials used" />
                       <div className="flex gap-2">
-                        <Button size="sm" className="h-9 bg-green-600 hover:bg-green-700 text-white flex-1 text-xs" onClick={handleProofSave} disabled={updateDispatch.isPending}>
+                        <Button size="sm" className="h-9 flex-1 text-xs" onClick={handleProofSave} disabled={updateDispatch.isPending}>
                           {updateDispatch.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Record Completion"}
                         </Button>
                         <Button size="sm" variant="ghost" className="h-9 text-xs" onClick={() => setShowProof(false)}>Cancel</Button>
