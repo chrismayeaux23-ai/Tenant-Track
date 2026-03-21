@@ -4,7 +4,7 @@
 VendorTrust is a mobile-first SaaS web application designed for landlords to efficiently manage maintenance requests. It utilizes QR codes for tenant submissions and provides a comprehensive system for vendor management, including trust scoring, dispatch coordination, and detailed analytics. The platform aims to streamline property maintenance, enhance communication between landlords, tenants, and vendors, and improve the overall efficiency and accountability of repair processes. Key capabilities include property management, tenant request tracking, staff and vendor assignment, cost logging, recurring maintenance scheduling, and subscription billing.
 
 ## User Preferences
-The user prefers a dark mode theme with a dark navy and neon crimson color scheme. Headings should use the 'Space Grotesk' font, and body text should use 'Inter'. Active navigation items in the sidebar should have a crimson left border, and the sidebar itself should have a deep near-black background. Semantic colors should be used for status indicators (e.g., green for "Completed/Excellent") and CTAs/UI accents (red/primary).
+The user prefers a dark mode theme with a dark navy and neon orange color scheme (matching the logo). Headings should use the 'Space Grotesk' font, and body text should use 'Inter'. Active navigation items in the sidebar should have an orange left border, and the sidebar itself should have a deep near-black background. Semantic colors should be used for status indicators (e.g., green for "Completed/Excellent") and CTAs/UI accents (orange/primary).
 
 ## System Architecture
 The application follows a mobile-first design philosophy.
@@ -14,7 +14,7 @@ The application follows a mobile-first design philosophy.
 - **Authentication**: Supports email/password login and legacy Replit Auth, both managed via Passport sessions. User data includes `passwordHash` and is generated with `crypto.randomUUID()` on signup.
 - **Storage**: Replit Object Storage is used for tenant photo uploads.
 - **UI/UX**:
-    - **Color Scheme**: Dark navy background (`--background: 226 32% 5%`) with neon crimson primary (`--primary: 354 88% 62%`).
+    - **Color Scheme**: Dark navy background (`--background: 226 32% 5%`) with neon orange primary (`--primary: 24 95% 55%`).
     - **Typography**: Space Grotesk for headings, Inter for body text.
     - **Layout**: Left sidebar navigation with active indicator, mobile-first responsiveness including a bottom navigation bar.
     - **Theming**: Always dark mode; no light mode toggle.

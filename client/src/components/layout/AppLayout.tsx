@@ -121,8 +121,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         }
                       `}
                       style={active ? {
-                        background: "linear-gradient(90deg, hsl(354 88% 62% / 0.12) 0%, hsl(354 88% 62% / 0.04) 100%)",
-                        borderLeft: "2px solid hsl(354 88% 62%)",
+                        background: "linear-gradient(90deg, hsl(24 95% 55% / 0.12) 0%, hsl(24 95% 55% / 0.04) 100%)",
+                        borderLeft: "2px solid hsl(24 95% 55%)",
                         marginLeft: "2px",
                         paddingLeft: "10px",
                       } : {

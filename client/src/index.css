@@ -19,8 +19,8 @@
     --popover: 226 26% 9%;
     --popover-foreground: 214 22% 94%;
 
-    /* Neon crimson/rose-red */
-    --primary: 354 88% 62%;
+    /* Neon orange (matches logo) */
+    --primary: 24 95% 55%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 226 22% 12%;
@@ -43,7 +43,7 @@
 
     --border: 226 20% 15%;
     --input: 226 20% 15%;
-    --ring: 354 88% 62%;
+    --ring: 24 95% 55%;
 
     --radius: 0.875rem;
 
@@ -84,7 +84,7 @@
   }
 
   .neon-glow {
-    box-shadow: 0 0 16px -4px hsl(354 88% 62% / 0.5);
+    box-shadow: 0 0 16px -4px hsl(24 95% 55% / 0.5);
   }
 
   .card-glass {
