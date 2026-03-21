@@ -1,0 +1,476 @@
+You are working inside my EXISTING app called VendorTrust.
+
+IMPORTANT:
+VendorTrust has already gone through multiple feature prompts. Replit may think these features are “implemented,” but I do NOT want you to rebuild them from scratch unless absolutely necessary.
+
+Your job is to:
+1. AUDIT what already exists
+2. IDENTIFY what is partial, broken, disconnected, duplicated, or fake-complete
+3. FIX the broken parts
+4. INTEGRATE all existing features into one working end-to-end maintenance dispatch system
+5. HARDEN the app for real private beta use
+
+Do NOT respond by saying features are already done unless you have actually traced the full workflow end-to-end in code and verified the connections.
+
+==================================================
+CURRENT PRODUCT DIRECTION
+==================================================
+
+VendorTrust is a maintenance dispatch and vendor management SaaS for landlords and property managers.
+
+The app should solve this real workflow:
+
+- maintenance request comes in
+- best vendor is recommended or auto-assigned
+- vendor gets notified
+- vendor opens secure magic link
+- vendor accepts / declines / proposes new time
+- landlord sees the response immediately
+- job gets scheduled without confusion
+- reminders/notifications go out
+- if vendor does not respond, SLA/escalation logic kicks in
+- fallback vendor can be recommended or assigned
+- job moves through dispatch board states
+- vendor marks en route / started / completed
+- proof, notes, cost, and audit trail are preserved
+- landlord can manage all this from one coherent system
+
+==================================================
+NON-NEGOTIABLE INSTRUCTION
+==================================================
+
+DO NOT treat this as a fresh feature build.
+
+FIRST:
+- inspect the existing codebase
+- find all existing implementations related to:
+  - vendor portal
+  - magic links
+  - scheduling/calendar
+  - notifications
+  - auto-dispatch
+  - SLA / escalation
+  - dispatch board
+  - vendor assignment
+  - activity logs
+  - dashboard stats
+- preserve and reuse what is already good
+- remove duplication only when necessary
+- fill in missing connections between features
+- fix incomplete implementations
+
+I want one integrated product, not a pile of half-finished features.
+
+==================================================
+PHASE 1 — FULL AUDIT
+==================================================
+
+Before making major changes, inspect and trace all related code paths and identify:
+
+1. WHICH FEATURES ALREADY EXIST
+Check for:
+- vendor magic-link portal
+- token generation / verification / expiration
+- vendor response states
+- vendor actions like accept / decline / propose time / en route / started / completed
+- scheduling page/calendar
+- conflict detection
+- unscheduled jobs queue
+- notification service / templates / triggers
+- auto-dispatch or recommendation logic
+- dispatch modes
+- SLA deadline logic
+- escalation or fallback reassignment logic
+- dispatch board / kanban
+- activity log integration
+- request detail page integration
+- dashboard metrics connected to dispatch states
+
+2. WHICH PARTS ARE ONLY PARTIAL
+Examples:
+- UI exists but backend does not
+- backend exists but no UI wiring
+- route exists but not used
+- status updates exist but do not trigger notifications
+- token exists but not secure
+- scheduling exists but not connected to vendor portal
+- auto-dispatch exists but only as manual recommendation
+- SLA exists in schema but no runtime behavior
+- board exists but stale due to query invalidation issues
+
+3. WHICH PARTS CONFLICT OR DUPLICATE EACH OTHER
+Examples:
+- duplicate routes
+- duplicate status names
+- inconsistent query keys
+- multiple competing scheduling fields
+- vendor status separate from request status with no sync strategy
+- duplicate notification code paths
+- old and new schema fields both partially used
+
+==================================================
+PHASE 2 — FIX + INTEGRATE CORE WORKFLOW
+==================================================
+
+After the audit, fix and integrate everything so the following workflow actually works end-to-end:
+
+==================================================
+A. REQUEST CREATION + DISPATCH ENTRY
+==================================================
+
+When a maintenance request is created or moved into dispatch flow:
+
+- determine whether the account/property uses:
+  - manual dispatch
+  - recommendations only
+  - auto-assign best vendor
+
+If recommendation or auto-dispatch exists already, fix and complete it.
+
+Make sure vendor selection uses practical rules such as:
+- trade/category match
+- urgency
+- service area / property location if available
+- emergency availability
+- trust score
+- preferred vendor
+- no-show penalty
+- active workload penalty
+
+If auto-dispatch mode is enabled:
+- assign vendor automatically
+- create clear dispatch state
+- store readable dispatch reasoning
+- trigger vendor notification flow
+
+If recommendation mode is enabled:
+- surface ranked vendors with readable reasoning
+- allow quick assign from request detail and dispatch board
+
+==================================================
+B. VENDOR ASSIGNMENT + MAGIC-LINK PORTAL
+==================================================
+
+Audit and fix the existing vendor portal and magic-link workflow.
+
+Requirements:
+- secure signed token or securely validated token flow
+- token scoped to one vendor and one request
+- token expiration
+- revoke / regenerate support
+- resend link support
+- no access to unrelated jobs or admin screens
+
+Vendor must be able to:
+- view job summary
+- accept
+- decline
+- propose new time
+- mark en route
+- mark started
+- mark completed
+- add notes
+- add completion notes
+
+If proof-of-completion upload already partially exists, complete and wire it in.
+If not, leave clean hooks but do not derail the prompt into a giant file-upload rebuild.
+
+Vendor response states should be coherent and fully wired:
+- pending-response
+- accepted
+- declined
+- proposed-new-time
+- no-response
+
+Vendor actions must update:
+- landlord request detail page
+- dispatch board
+- activity log
+- notification system
+- scheduling UI when relevant
+
+==================================================
+C. SCHEDULING + CALENDAR
+==================================================
+
+Audit and fix the scheduling system.
+
+If there are old fields like scheduledDate and newer fields like scheduledStartAt, unify the logic cleanly while preserving compatibility where needed.
+
+Make sure the app has a working operational scheduling workflow:
+- assigned-but-unscheduled jobs are visible
+- job can be scheduled
+- rescheduled
+- unscheduled
+- arrival window updated
+- full request detail can open from scheduling context
+
+Scheduling UI should support at least:
+- day view
+- week view
+- list view
+
+If drag-and-drop already exists and is stable, keep/fix it.
+If not stable, use modal-based scheduling and make it reliable.
+
+Conflict detection must work:
+- warn when same vendor overlaps
+- warn on unrealistic back-to-back jobs
+- allow override with clear confirmation if intended
+
+Vendor proposed times must show distinctly from official schedule.
+Landlord approval/manual update should determine official schedule.
+
+When official schedule changes:
+- vendor portal reflects it
+- relevant notifications fire
+- dispatch board reflects it
+
+==================================================
+D. NOTIFICATIONS
+==================================================
+
+Audit and fix all maintenance workflow notifications.
+
+Centralize mail/notification logic if currently scattered.
+
+Make sure these notifications are actually triggered at the correct events:
+
+Vendor notifications:
+- vendor assigned
+- magic link sent
+- reminder before scheduled visit
+- rescheduled
+- cancelled / reassigned
+
+Landlord/manager notifications:
+- vendor accepted
+- vendor declined
+- vendor proposed new time
+- vendor marked en route
+- vendor marked started
+- vendor marked completed
+- vendor no-response / deadline missed
+- emergency remains unassigned
+
+Tenant notifications if tenant flow already exists:
+- vendor scheduled
+- rescheduled
+- completed
+
+Add or fix notification history tracking:
+- type
+- recipient
+- related request
+- sentAt
+- success/failure
+- last error
+
+Request detail page should show useful notification history or latest notification state.
+
+==================================================
+E. SLA + ESCALATION + FALLBACK
+==================================================
+
+Audit and complete any SLA / escalation implementation.
+
+For assigned jobs, response deadlines should work based on urgency, such as:
+- emergency = shortest
+- high = short
+- medium = moderate
+- low = longer
+
+If a vendor does not respond in time:
+- mark no-response
+- log event
+- update UI with overdue state
+- surface next-best vendor
+- optionally auto-reassign if dispatch mode/config allows
+- trigger relevant landlord alert
+
+If the current code has SLA fields but no actual runner/check:
+- implement a practical, maintainable way for checks to happen
+- do not over-engineer
+- use the app’s existing architecture patterns
+- if background jobs are absent, implement the simplest reliable MVP approach compatible with the stack
+
+Escalation history should be visible in request detail.
+
+==================================================
+F. DISPATCH BOARD / OPS COMMAND CENTER
+==================================================
+
+Audit and fix the dispatch board so it becomes the operations view for property managers.
+
+It should work with real data and not stale placeholders.
+
+Core columns:
+- Needs Dispatch
+- Awaiting Vendor Response
+- Scheduled
+- In Progress
+- Waiting on Parts
+- Completed
+
+Each card should show useful operational info:
+- issue / request title
+- property + unit
+- urgency
+- assigned vendor
+- vendor response state
+- scheduled time
+- trust score or recommendation clue if useful
+
+Quick actions should work from the board where appropriate:
+- assign vendor
+- open request detail
+- schedule
+- update status if safe
+- see overdue / escalation state
+
+Board must stay in sync with:
+- vendor actions
+- scheduling changes
+- auto-dispatch
+- SLA overdue state
+
+==================================================
+G. REQUEST DETAIL PAGE AS SOURCE OF TRUTH
+==================================================
+
+The request detail page must clearly answer:
+
+- what is this issue
+- who owns this job right now
+- what dispatch mode is active
+- which vendor is assigned
+- whether vendor responded
+- when job is scheduled
+- whether a proposed time exists
+- whether SLA deadline is approaching or missed
+- what notifications were sent
+- what happens next
+
+Unify this page so it becomes a trustworthy source of operational truth.
+
+==================================================
+PHASE 3 — CLEANUP INCONSISTENCIES
+==================================================
+
+You must fix mismatches and stale-state problems across the app.
+
+Specifically inspect for and fix:
+- inconsistent query keys / invalidation
+- stale React Query caches after assignment, scheduling, vendor actions, notifications
+- inconsistent API route naming
+- inconsistent status enums
+- old/new field mismatch for scheduling
+- duplicated vendor-assignment logic
+- duplicated notification logic
+- request state vs dispatch state vs vendor response state mismatches
+- dashboard metrics using outdated filters or wrong statuses
+
+Do not just patch one screen. Fix the underlying state flow.
+
+==================================================
+PHASE 4 — PRODUCTION HARDENING FOR PRIVATE BETA
+==================================================
+
+Prepare the app for real private beta use.
+
+Improve:
+- validation
+- error handling
+- empty states
+- loading states
+- permission checks
+- bad token handling
+- revoked/expired link behavior
+- schedule conflict messaging
+- operational toasts/messages
+- logging of critical maintenance actions
+
+Prioritize reliability over flashy visuals.
+
+==================================================
+IMPLEMENTATION RULES
+==================================================
+
+- Do NOT rebuild from scratch unless absolutely required
+- Preserve existing architecture where possible
+- Reuse existing schema, services, hooks, and components when they are good
+- Refactor only where necessary to unify broken flows
+- Add strong TypeScript typing
+- Avoid dead code
+- Remove duplicated code paths only when you are sure they are obsolete
+- Keep the product focused on dispatch/scheduling/vendor coordination
+- Do not introduce unrelated features
+
+==================================================
+END-TO-END TESTING YOU MUST DO IN CODE
+==================================================
+
+After integration work, verify the code supports this full workflow:
+
+1. create a maintenance request
+2. verify recommendation or auto-dispatch logic triggers correctly
+3. assign vendor or confirm auto-assigned vendor
+4. send vendor magic link
+5. vendor opens link successfully
+6. vendor accepts
+7. landlord sees immediate updated response state
+8. landlord schedules job
+9. conflict detection works if overlapping vendor schedule exists
+10. vendor sees official schedule
+11. vendor proposes new time
+12. landlord can see proposed time distinctly
+13. landlord confirms/reschedules official time
+14. reminder notifications are wired
+15. vendor marks en route
+16. vendor marks started
+17. vendor marks completed
+18. landlord and tenant notifications fire where appropriate
+19. activity log records each important event
+20. if vendor does not respond in time, no-response + escalation path works
+21. fallback vendor recommendation or reassignment path works
+22. dispatch board updates correctly at every stage
+23. dashboard metrics remain accurate
+
+==================================================
+WHEN FINISHED, PROVIDE A REAL REPORT
+==================================================
+
+When done, do NOT just say “implemented.”
+
+Provide a structured report with these sections:
+
+1. AUDIT SUMMARY
+- what already existed
+- what was partial/broken
+- what you fixed
+- what you integrated
+
+2. FILES CHANGED
+- list key files changed and why
+
+3. DATA MODEL SUMMARY
+- all important request/vendor/scheduling/notification/SLA fields now in use
+
+4. ROUTES / ENDPOINTS
+- key API routes involved in the final workflow
+
+5. INTEGRATED WORKFLOW SUMMARY
+- explain the final end-to-end landlord/vendor workflow
+
+6. KNOWN LIMITATIONS
+- anything still MVP-only or intentionally simplified
+
+7. MANUAL QA CHECKLIST
+- explicit click-by-click checklist I can test in the app
+
+8. ANY ENV VARS OR SETUP STEPS NEEDED
+
+FINAL INSTRUCTION:
+Be skeptical.
+Assume prior prompts may have produced partial, duplicated, or disconnected implementations.
+Your job is to make VendorTrust feel like one coherent real product, not a collection of “done” tickets.
