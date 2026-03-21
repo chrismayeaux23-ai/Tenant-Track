@@ -1,0 +1,95 @@
+You are working inside my EXISTING app called VendorTrust.
+
+Your task is to build ONLY a practical scheduling calendar for maintenance jobs and vendor conflict detection.
+
+GOAL
+Turn the current simple scheduled date/arrival window setup into a real scheduling workflow for property managers.
+
+SCOPE
+Do not rebuild the app.
+Do not touch unrelated billing/auth flows.
+Do not build route optimization or mobile apps.
+Stay tightly focused on scheduling.
+
+BUILD THESE FEATURES
+
+1. CALENDAR / SCHEDULING PAGE
+Create a scheduling view that supports:
+- day view
+- week view
+- list view
+
+Each scheduled item should show:
+- request title/issue
+- property + unit
+- vendor
+- urgency
+- job status
+- scheduled start
+- scheduled end or estimated duration
+- arrival window
+
+2. FILTERS
+Add filters for:
+- vendor
+- property
+- status
+- trade/category
+- urgency
+
+3. SCHEDULING ACTIONS
+Allow landlord/admin to:
+- schedule a job
+- reschedule a job
+- unschedule a job
+- change arrival window
+- change duration if used
+- open the full request detail from the calendar
+
+4. UNSCHEDULED QUEUE
+Add a side panel or list for assigned-but-unscheduled jobs so managers can schedule them quickly.
+
+5. CONFLICT DETECTION
+Implement MVP conflict detection:
+- warn if same vendor is double-booked
+- warn if same vendor has overlapping arrival windows
+- warn if same vendor has jobs stacked unrealistically close together
+- allow override with confirmation if needed
+
+6. DATA MODEL UPDATES
+Migrate or extend scheduling fields cleanly, such as:
+- scheduledStartAt
+- scheduledEndAt
+- estimatedDurationMinutes
+- arrivalWindowStart
+- arrivalWindowEnd
+- schedulingNotes
+- rescheduledFrom
+- rescheduledTo
+
+If the app currently uses simpler fields like scheduledDate, preserve backward compatibility where reasonable.
+
+7. LANDLORD UX
+- make scheduling fast and operational
+- if drag-and-drop is stable and easy, implement it
+- if not, use modal-based scheduling with clean UX
+- surface schedule conflicts clearly before save
+
+8. VENDOR PORTAL INTEGRATION
+If vendor portal already exists:
+- updated official schedule should appear there
+- if vendor has proposed a time, show it distinctly from the official time
+- do not automatically overwrite official schedule with vendor proposed time
+
+TECHNICAL RULES
+- preserve code style and app architecture
+- reuse current UI/component patterns where possible
+- type everything
+- avoid over-engineering
+
+WHEN DONE, PROVIDE
+1. summary of files changed
+2. summary of new fields
+3. summary of routes/endpoints
+4. scheduling test checklist
+5. known limitations
