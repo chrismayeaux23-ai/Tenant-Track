@@ -67,7 +67,7 @@ const DETAILED_FEATURES = [
     visual: "dashboard",
   },
   {
-    id: "tenant-tracking",
+    id: "request-tracking",
     badge: "Tenant Experience",
     title: "Tenant Request Tracking",
     subtitle: "Happy tenants. Fewer phone calls. Better reviews.",

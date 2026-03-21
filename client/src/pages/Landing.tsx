@@ -11,7 +11,6 @@ import {
   Camera, Bell, Wrench, BarChart2, MapPin, Printer
 } from "lucide-react";
 import logoPng from "@assets/vendortrust-logo.png";
-import heroPng from "@assets/vendortrust-hero.png";
 
 const PLANS = [
   {
@@ -865,11 +864,11 @@ export default function Landing() {
           </div>
 
           <div className="flex-1 w-full max-w-2xl animate-in fade-in zoom-in duration-1000">
-            <div className="relative p-2 bg-gradient-to-tr from-primary/20 to-rose-400/10 rounded-[2.5rem] overflow-hidden">
+            <div className="relative p-6 md:p-10 bg-gradient-to-tr from-primary/20 to-rose-400/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center">
               <img
-                src={heroPng}
-                alt="VendorTrust Dashboard Preview"
-                className="rounded-[2rem] shadow-2xl border border-white/10 w-full object-cover aspect-video lg:aspect-square"
+                src={logoPng}
+                alt="VendorTrust"
+                className="w-full max-w-md drop-shadow-2xl"
               />
             </div>
           </div>

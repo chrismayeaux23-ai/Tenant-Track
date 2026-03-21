@@ -1,16 +1,16 @@
-# Tenant-Track
+# VendorTrust
 
-Tenant-Track is a SaaS platform designed to help landlords and property owners manage properties, tenants, maintenance requests, and repair costs in one centralized dashboard.
+VendorTrust is a mobile-first SaaS platform for landlords and property owners to manage maintenance requests via QR codes, coordinate vendor dispatch with trust scoring, and track repair costs — all in one dashboard.
 
-The system allows tenants to submit maintenance issues while landlords track requests, assign staff, monitor expenses, and manage multiple properties.
+Tenants submit maintenance issues instantly by scanning a QR code. Landlords dispatch trusted vendors, track job status, and manage costs across their entire portfolio.
 
 ---
 
 ## Product Walkthrough
 
-Watch a quick demo of Tenant Track:
+Watch a quick demo of VendorTrust:
 
-[![Tenant Track Demo](https://img.youtube.com/vi/3Y8qK9X28ko/0.jpg)](https://www.youtube.com/watch?v=3Y8qK9X28ko)
+[![VendorTrust Demo](https://img.youtube.com/vi/3Y8qK9X28ko/0.jpg)](https://www.youtube.com/watch?v=3Y8qK9X28ko)
 
 ---
 
@@ -23,192 +23,74 @@ Password: demo123
 
 ---
 
-## Who TenantTrack Is Built For
+## Who VendorTrust Is Built For
 
-![Built For](screenshots/feature-built-for.png)
+Independent landlords and small property management companies who need a simple, powerful system for maintenance coordination and vendor management.
 
 ---
 
 ## Everything a Landlord Needs
 
-TenantTrack replaces scattered texts, spreadsheets, and sticky notes with one organized maintenance management system.
-
-![Overview](screenshots/feature-overview.png)
+VendorTrust replaces scattered texts, spreadsheets, and sticky notes with one organized maintenance management system featuring vendor trust scores, dispatch coordination, and cost tracking.
 
 ---
 
-## Smart Landlord Dashboard
+## Key Features
 
-Track all maintenance requests across every property from one dashboard.
-
-![Dashboard](screenshots/feature-smart-dash.png)
-
----
-
-## QR Code Maintenance Request System
-
-Tenants scan a QR code and submit maintenance issues instantly with photos and urgency level.
-
-![QR System](screenshots/feature-qr-system.png)
-
----
-
-## Tenant Request Tracking
-
-Tenants receive a tracking code and can monitor request progress without calling or texting.
-
-![Request Tracking](screenshots/feature-request-tracking.png)
-
----
-
-## Tenant–Landlord Messaging
-
-Built-in messaging keeps conversations tied directly to each maintenance request.
-
-![Messaging](screenshots/feature-messaging.png)
-
----
-
-## Maintenance Staff Management
-
-Assign maintenance requests to staff members and track workload across properties.
-
-![Staff Management](screenshots/feature-staff-management.png)
-
----
-
-## Recurring Maintenance Scheduling
-
-Prevent expensive repairs by scheduling recurring maintenance tasks.
-
-![Recurring Maintenance](screenshots/feature-recurring-maintenance.png)
-
----
-
-## Repair Cost Tracking & Reports
-
-Track repair costs across properties and export reports for taxes and accounting.
-
-![Cost Tracking](screenshots/feature-cost-tracking.png)
-
----
-
-## Platform Metrics
-
-TenantTrack helps landlords reduce maintenance coordination time and improve tenant communication.
-
-![Metrics](screenshots/feature-metrics.png)
-
----
-
-## Why Landlords Choose TenantTrack
-
-TenantTrack focuses on simplicity and workflows designed specifically for independent landlords.
-
-![Why Choose](screenshots/feature-why-choose.png)
-
----
-
-## TenantTrack vs The Old Way
-
-See how TenantTrack compares to traditional maintenance tracking using calls, texts, and spreadsheets.
-
-![Why Switch](screenshots/feature-why-switch.png)
-
----
-
-## Transparent Pricing
-
-Simple pricing plans designed for independent landlords and small portfolios.
-
-![Pricing](screenshots/feature-pricing.png)
-
----
-
-## Screenshots - App UI
-
----
-
-### Landing Page
-![Landing Page](screenshots/ScreenshotLanding.png)
-
-### Pricing
-![Pricing](screenshots/Screenshot_Pricing.png)
-
-### Property Management
-![Property List](screenshots/Screenshot_PropertyList.png)
-
-### Maintenance Requests
-![Requests List](screenshots/Screenshot_RequestsList.png)
-
-### Tenants Management
-![Tenants List](screenshots/Screenshot_TenantsList.png)
-
-### Staff Management
-![Staff List](screenshots/Screenshot_StaffList.png)
-
-### Cost Tracking
-![Cost Tracking](screenshots/Screenshot_CostTracking.png)
-
-### Task Reminders
-![Task Reminders](screenshots/Screenshot_TaskReminders.png)
-
-### Tenant QR Code Access
-![Tenant QR Code](screenshots/Screenshot_QRcodeTenantSide.png)
-
----
-
-## Features
-
-- Property management dashboard
-- Tenant database and management
-- Maintenance request submission and tracking
-- Maintenance staff management
-- Cost tracking for repairs
-- Task reminders and notifications
-- QR code tenant request system
-- Photo uploads for maintenance issues
-- Centralized request dashboard
+- **QR Code Maintenance System** — Tenants scan and submit issues in 60 seconds with photos
+- **Vendor Trust Scores** — Every contractor rated 0–100 based on job performance
+- **Smart Vendor Dispatch** — Assign, schedule, and track vendors per request
+- **Proof of Completion** — Capture completion notes, invoices, materials, and final costs
+- **Vendor Leaderboard & Analytics** — Performance insights across your vendor network
+- **Tenant Request Tracking** — Tenants check status anytime with a tracking code (no app needed)
+- **Bilingual Tenant UI** — English/Spanish support for tenant-facing pages
+- **Tenant–Landlord Messaging** — Two-way messages tied to each request
+- **Staff Assignment** — Assign maintenance requests to team members
+- **Recurring Maintenance** — Schedule and track preventive maintenance tasks
+- **Cost Tracking & Reports** — Log costs per request, export CSV for accounting
+- **Stripe Subscriptions** — Three tiers: Starter ($29), Growth ($59), Pro ($99) with 14-day trial
+- **Email Notifications** — Automated alerts via Resend for new requests, status updates, and assignments
+- **Mobile-First Design** — Dark theme, responsive layout, works on any device
 
 ---
 
 ## Tech Stack
 
-Frontend
-- React
+**Frontend**
+- React + TypeScript
 - Vite
 - TailwindCSS
-- Radix UI
+- Shadcn UI / Radix UI
 
-Backend
-- Node.js
-- Express
+**Backend**
+- Node.js + Express
 - TypeScript
-
-Database
-- PostgreSQL
 - Drizzle ORM
 
-Integrations
+**Database**
+- PostgreSQL
+
+**Integrations**
 - Stripe (subscription payments)
-- WebSockets (real-time updates)
-- Uppy (file uploads)
+- Resend (email notifications)
+- Replit Object Storage (photo uploads)
 
 ---
 
-## Installation
+## Environment Variables
 
-Clone the repository:
+Required:
+- `DATABASE_URL` — PostgreSQL connection string
+- `SESSION_SECRET` — Session encryption key
 
-```bash
-git clone https://github.com/chrismayeaux23-ai/Tenant-Track.git
-```
+Optional:
+- `RESEND_API_KEY` — For email notifications
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — For Google OAuth
+- `EMAIL_FROM` — Sender address (e.g. `VendorTrust <notifications@vendortrust.com>`)
 
-Navigate into the project folder:
+---
 
-```bash
-cd Tenant-Track
-```
+## Development
 
 Install dependencies:
 
@@ -216,76 +98,7 @@ Install dependencies:
 npm install
 ```
 
-Create your environment variables file:
-
-```bash
-cp .env.example .env
-```
-
 Start the development server:
-
-```bash
-npm run dev
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file based on `.env.example`.
-
-Example configuration:
-
-```env
-NODE_ENV=development
-PORT=5000
-
-DATABASE_URL=postgresql://username:password@localhost:5432/tenanttrack
-
-SESSION_SECRET=replace_with_secure_random_string
-
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-
-S3_BUCKET=
-S3_ACCESS_KEY=
-S3_SECRET_KEY=
-```
-
----
-
-## Project Structure
-
-```text
-client/        # React frontend
-server/        # Express backend
-db/            # Database schema and migrations
-screenshots/   # README images
-docs/          # Project documentation
-.env.example   # Example environment variables
-README.md      # Project documentation
-LICENSE        # MIT license
-```
-
----
-
-## Required Services
-
-Tenant Track requires the following services to run:
-
-- Node.js
-- PostgreSQL
-
-Optional integrations:
-
-- Stripe (for subscriptions)
-- S3 compatible storage for file uploads
-
----
-
-## Development
-
-Run the development server:
 
 ```bash
 npm run dev
@@ -297,37 +110,26 @@ Build the application:
 npm run build
 ```
 
-Start the production server:
-
-```bash
-npm start
-```
-
 ---
 
-## Roadmap
+## Required Services
 
-Planned future improvements:
+VendorTrust requires the following services to run:
 
-- Mobile tenant portal
-- Maintenance scheduling
-- Vendor marketplace
-- Push notifications
-- Property financial reports
-- AI repair request categorization
+- Node.js
+- PostgreSQL
+
+Optional integrations:
+
+- Stripe (for subscriptions)
+- Resend (for email notifications)
+- S3-compatible storage for file uploads
 
 ---
 
 ## Repository Purpose
 
-This repository contains the full source code for the TenantTrack SaaS platform.
-
-It can be used for:
-
-- running the platform locally
-- deploying the application
-- extending the maintenance management system
-- learning from the architecture of a vertical SaaS product
+This repository contains the full source code for the VendorTrust SaaS platform.
 
 ---
 
@@ -341,4 +143,4 @@ MIT License
 
 Christopher Mayeaux
 
-Tenant-Track was created as a vertical SaaS solution designed to simplify property maintenance management for independent landlords and property investors.
+VendorTrust was created as a vertical SaaS solution designed to simplify property maintenance management and vendor coordination for independent landlords and property investors.

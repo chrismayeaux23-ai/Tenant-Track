@@ -1,6 +1,6 @@
 # System Architecture
 
-TenantTrack uses a modern full-stack architecture.
+VendorTrust uses a modern full-stack architecture.
 
 Frontend
 React + Vite + TailwindCSS

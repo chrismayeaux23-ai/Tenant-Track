@@ -1,6 +1,6 @@
 # Deployment Guide
 
-TenantTrack can be deployed on any Node.js hosting provider.
+VendorTrust can be deployed on any Node.js hosting provider.
 
 ## Required Services
 
