@@ -1,201 +1,144 @@
-# TenantTrack
+TenantTrack
 
-TenantTrack is a modern maintenance dispatch and vendor coordination platform built for landlords and property managers.
+TenantTrack is a modern maintenance dispatch and vendor coordination platform for landlords and property managers.
 
-It replaces messy calls, texts, and spreadsheets with a structured system for automatically assigning vendors, managing schedules, tracking job progress, and handling maintenance operations end-to-end.
+It eliminates the chaos of calls, texts, and spreadsheets by automatically assigning vendors, managing scheduling, and tracking maintenance jobs from request to completion.
 
----
+🚀 What TenantTrack Solves
 
-## 🚀 What TenantTrack Solves
+Maintenance coordination is one of the most frustrating parts of property management:
 
-Maintenance coordination is one of the most chaotic parts of property management.
+Vendors don’t respond
+Jobs get lost or delayed
+Scheduling is inconsistent
+Follow-ups waste hours
+No clear system of record
 
-* Vendors don’t respond
-* Scheduling is inconsistent
-* Jobs fall through the cracks
-* Follow-ups take too much time
-* There’s no clear system of record
+TenantTrack turns this into a simple, automated workflow:
 
-TenantTrack turns this into a **clear, automated workflow**:
+A tenant submits a request (QR code or form)
+The best vendor is recommended or assigned
+The vendor receives a secure job link
+The vendor accepts or proposes a time
+The job is scheduled and tracked
+Notifications keep everyone in sync
+The system escalates if no one responds
+🧠 Core Features
+⚙️ Smart Vendor Dispatch
+Recommend or auto-assign vendors based on performance
+Trust score ranking system
+Preferred vendor prioritization
+Fallback vendor suggestions
+🔗 Vendor Magic-Link Portal
+Vendors access jobs instantly (no account required)
+Accept, decline, or propose new time
+Update job status (en route, started, completed)
+Add notes and completion details
+📅 Scheduling & Calendar
+Schedule and reschedule jobs easily
+Conflict detection for double-booking
+Track workload across properties
+⏱ SLA & Escalation
+Response deadlines based on urgency
+Detect non-responsive vendors automatically
+Recommend next-best vendor
+Prevent jobs from getting stuck
+📊 Dispatch Board
+Visual workflow:
+Needs Dispatch
+Awaiting Response
+Scheduled
+In Progress
+Completed
+Prioritize urgent and overdue jobs
+Take quick actions directly from the board
+🛠 Vendor Management
+Track vendor performance over time
+Trust scores based on:
+reviews
+job completion
+no-show behavior
+📋 Maintenance Tracking
+Full lifecycle tracking
+Store notes, invoices, materials, and costs
+Complete audit trail
+🔔 Automated Notifications
+Vendor assignment emails
+Vendor reminders
+Status updates
+Tenant notifications
+🏠 Tenant Request System
+QR code submissions (no app required)
+Photo uploads
+Status tracking
+🧱 Tech Stack
 
-1. A request is created
-2. The best vendor is recommended or assigned
-3. The vendor receives a secure job link
-4. The vendor accepts or proposes a time
-5. The job is scheduled and tracked
-6. Notifications keep everyone in sync
-7. The system escalates if a vendor doesn’t respond
+Frontend:
 
----
+React + TypeScript
+Vite
+TailwindCSS
 
-## 🧠 Core Features
+Backend:
 
-### ⚙️ Smart Dispatch System
+Node.js + Express
+TypeScript
+Drizzle ORM
 
-* Recommend or auto-assign the best vendor
-* Scoring based on trust, performance, and availability
-* Preferred vendor prioritization
-* Fallback vendor suggestions if no response
+Database:
 
-### 🔗 Vendor Magic-Link Portal
+PostgreSQL
 
-* Vendors access jobs without creating accounts
-* Accept, decline, or propose new time
-* Mark en route, started, and completed
-* Submit notes and completion details
+Integrations:
 
-### 📅 Scheduling & Calendar
-
-* Schedule and reschedule jobs easily
-* Day, week, and list views
-* Conflict detection for vendor double-booking
-* Track upcoming workload across properties
-
-### ⏱ SLA & Escalation Engine
-
-* Response deadlines based on urgency
-* Detect no-response scenarios automatically
-* Recommend next-best vendor
-* Keep jobs from getting stuck
-
-### 📊 Dispatch Board (Ops Command Center)
-
-* Kanban-style workflow:
-
-  * Needs Dispatch
-  * Awaiting Response
-  * Scheduled
-  * In Progress
-  * Waiting on Parts
-  * Completed
-* Prioritize urgent and overdue jobs
-* Take quick actions directly from the board
-
-### 🛠 Vendor Management & Trust Scores
-
-* Track vendor performance over time
-* Trust score based on:
-
-  * job history
-  * reviews
-  * no-show behavior
-* Identify top-performing contractors instantly
-
-### 📋 Maintenance Request Management
-
-* Full lifecycle tracking from intake to completion
-* Store notes, invoices, materials, and final cost
-* Maintain clean audit trail for every job
-
-### 🔔 Automated Notifications
-
-* Vendor assignment and reminders
-* Vendor response alerts
-* Scheduling and rescheduling updates
-* Tenant updates when work is scheduled or completed
-
-### 🏠 Tenant Request System
-
-* QR code submission flow (no app required)
-* Photo uploads and detailed issue reporting
-* Status tracking via unique code
-
----
-
-## 🧱 Tech Stack
-
-**Frontend**
-
-* React + TypeScript
-* Vite
-* TailwindCSS
-* Shadcn UI / Radix UI
-
-**Backend**
-
-* Node.js + Express
-* TypeScript
-* Drizzle ORM
-
-**Database**
-
-* PostgreSQL
-
-**Integrations**
-
-* Stripe (subscriptions)
-* Resend (email notifications)
-* Replit Object Storage (file uploads)
-
----
-
-## ⚡ Getting Started
-
-```bash
-git clone https://github.com/your-username/TenantTrack.git
-cd TenantTrack
+Resend (email notifications)
+Stripe (subscriptions)
+Object storage (file uploads)
+⚡ Getting Started
+git clone https://github.com/your-username/tenanttrack.git
+cd tenanttrack
 npm install
 npm run dev
-```
-
----
-
-## 🔐 Environment Variables
+🔐 Environment Variables
 
 Required:
 
-* DATABASE_URL
-* SESSION_SECRET
+DATABASE_URL
+SESSION_SECRET
+
+Email:
+
+RESEND_API_KEY
+EMAIL_FROM
 
 Optional:
 
-* RESEND_API_KEY
-* GOOGLE_CLIENT_ID
-* GOOGLE_CLIENT_SECRET
-* EMAIL_FROM
+STRIPE_SECRET_KEY
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+🧪 Demo
 
----
-
-## 🧪 Demo Access
-
-Email: [landlord@test.com](mailto:landlord@test.com)
+Email: landlord@test.com
 Password: demo123
 
----
+🚧 Status
 
-## 🎯 Product Vision
+TenantTrack is in private beta.
 
-TenantTrack is evolving into a fully automated maintenance dispatch system where:
+Core dispatch, scheduling, and vendor coordination workflows are implemented and being refined with real user feedback.
 
-* The right vendor is assigned instantly
-* Vendors respond without manual follow-up
-* Scheduling happens seamlessly
-* Jobs never fall through the cracks
+🎯 Vision
 
----
+TenantTrack is evolving into a fully automated maintenance system where:
 
-## 🚧 Current Status
-
-TenantTrack is in **private beta**.
-
-Core workflows are implemented and actively being refined based on real usage.
-
----
-
-## 🤝 Contributing
-
-Contributions, feedback, and ideas are welcome.
-
----
-
-## 📄 License
+Vendors are assigned instantly
+Scheduling happens automatically
+Jobs never fall through the cracks
+Landlords stop chasing contractors
+📄 License
 
 MIT License
 
----
-
-## 👤 Author
+👤 Author
 
 Christopher Mayeaux
-
-TenantTrack is a vertical SaaS platform built to modernize maintenance operations for landlords and property managers.
