@@ -589,7 +589,7 @@ export default function Vendors() {
               </div>
               <h3 className="text-xl font-display font-bold mb-2">Build your vendor network</h3>
               <p className="text-muted-foreground max-w-sm mx-auto text-sm">
-                Add contractors you already trust. VendorTrust tracks their reliability, job history, and ratings — automatically building their trust score over time.
+                Add contractors you already trust. TenantTrack tracks their reliability, job history, and ratings — automatically building their trust score over time.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-6">

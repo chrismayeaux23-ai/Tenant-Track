@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2, CheckCircle, XCircle, Clock, MapPin, AlertTriangle, Phone, Wrench, Navigation, Play, Flag, MessageSquare, Image } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
-import logoPng from "@assets/vendortrust-icon-nobg.png";
+import logoPng from "@assets/tenanttrack-logo-nobg.png";
 
 const RESPONSE_LABELS: Record<string, { label: string; color: string }> = {
   "pending-response": { label: "Awaiting Your Response", color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" },
@@ -96,8 +96,8 @@ export default function VendorPortal() {
     <div className="min-h-screen bg-background">
       <nav className="border-b border-border bg-card/50 px-4 py-3 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <img src={logoPng} alt="VendorTrust" className="h-8 w-8 rounded-md" />
-          <span className="font-display font-bold text-foreground">VendorTrust</span>
+          <img src={logoPng} alt="TenantTrack" className="h-8 w-8 rounded-md" />
+          <span className="font-display font-bold text-foreground">TenantTrack</span>
           <span className="text-muted-foreground text-sm ml-auto">Vendor Portal</span>
         </div>
       </nav>
@@ -413,7 +413,7 @@ export default function VendorPortal() {
         </Card>
 
         <p className="text-center text-xs text-muted-foreground pt-4 pb-8">
-          Powered by VendorTrust &middot; This link is private to you
+          Powered by TenantTrack &middot; This link is private to you
         </p>
       </div>
     </div>

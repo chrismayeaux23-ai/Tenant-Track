@@ -10,7 +10,7 @@ import {
   Building2, Users, CheckCircle2, ArrowRight, Loader2,
   ShieldCheck, Zap, Check, Sparkles
 } from "lucide-react";
-import logoPng from "@assets/vendortrust-full-nobg.png";
+import logoPng from "@assets/tenanttrack-logo-nobg.png";
 
 const TRADE_CATEGORIES = [
   "Plumbing", "Electrical", "HVAC", "General Handyman",
@@ -79,8 +79,8 @@ export default function Onboarding() {
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border bg-card/80 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src={logoPng} alt="VendorTrust" className="h-8 w-8 rounded-lg object-contain" />
-          <span className="font-display font-bold text-lg text-foreground">VendorTrust</span>
+          <img src={logoPng} alt="TenantTrack" className="h-8 w-8 rounded-lg object-contain" />
+          <span className="font-display font-bold text-lg text-foreground">TenantTrack</span>
         </div>
         <button
           onClick={() => {
@@ -185,7 +185,7 @@ export default function Onboarding() {
                   <ShieldCheck className="h-8 w-8 text-primary" />
                 </div>
                 <h1 className="text-2xl font-display font-bold text-foreground mb-2">Add your first vendor</h1>
-                <p className="text-muted-foreground text-sm">Add a contractor you already work with. VendorTrust will track their reliability over time.</p>
+                <p className="text-muted-foreground text-sm">Add a contractor you already work with. TenantTrack will track their reliability over time.</p>
               </div>
 
               <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
@@ -259,7 +259,7 @@ export default function Onboarding() {
               </div>
               <h1 className="text-3xl font-display font-bold text-foreground mb-3">You're all set!</h1>
               <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
-                Your VendorTrust command center is ready. Start by creating a maintenance request or adding more vendors.
+                Your TenantTrack command center is ready. Start by creating a maintenance request or adding more vendors.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">

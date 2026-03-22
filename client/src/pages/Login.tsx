@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/hooks/use-auth";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import logoPng from "@assets/vendortrust-full-nobg.png";
+import logoPng from "@assets/tenanttrack-logo-nobg.png";
 
 const params = new URLSearchParams(window.location.search);
 const errorMessages: Record<string, string> = {
@@ -98,7 +98,7 @@ export default function Login() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-foreground">VendorTrust</h1>
+          <h1 className="text-2xl font-bold text-foreground">TenantTrack</h1>
           <p className="text-muted-foreground text-sm mt-1">Trusted vendor dispatch for landlords</p>
         </div>
 

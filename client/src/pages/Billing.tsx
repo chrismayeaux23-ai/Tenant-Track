@@ -153,7 +153,7 @@ export default function Billing() {
                   {trialExpired ? (
                     <>
                       <h2 className="font-display font-bold text-foreground">Your free trial has ended</h2>
-                      <p className="text-sm text-muted-foreground mt-0.5">Subscribe to continue accessing VendorTrust. Your data is safe.</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">Subscribe to continue accessing TenantTrack. Your data is safe.</p>
                     </>
                   ) : (
                     <>
@@ -364,7 +364,7 @@ export default function Billing() {
           <div className="mt-4 pt-4 border-t border-border text-center">
             <p className="text-xs text-muted-foreground">
               Questions?{" "}
-              <a href="mailto:support@vendortrust.com" className="text-primary hover:underline">support@vendortrust.com</a>
+              <a href="mailto:support@tenant-track.com" className="text-primary hover:underline">support@tenant-track.com</a>
               {" "} · {" "}
               <a href="/terms" className="text-primary hover:underline">Terms</a>
               {" "} · {" "}

@@ -1,7 +1,7 @@
-# VendorTrust
+# TenantTrack
 
 ## Overview
-VendorTrust is a mobile-first SaaS web application designed for landlords to efficiently manage maintenance requests. It utilizes QR codes for tenant submissions and provides a comprehensive system for vendor management, including trust scoring, dispatch coordination, and detailed analytics. The platform aims to streamline property maintenance, enhance communication between landlords, tenants, and vendors, and improve the overall efficiency and accountability of repair processes. Key capabilities include property management, tenant request tracking, staff and vendor assignment, cost logging, recurring maintenance scheduling, and subscription billing.
+TenantTrack is a mobile-first SaaS web application designed for landlords to efficiently manage maintenance requests. It utilizes QR codes for tenant submissions and provides a comprehensive system for vendor management, including trust scoring, dispatch coordination, and detailed analytics. The platform aims to streamline property maintenance, enhance communication between landlords, tenants, and vendors, and improve the overall efficiency and accountability of repair processes. Key capabilities include property management, tenant request tracking, staff and vendor assignment, cost logging, recurring maintenance scheduling, and subscription billing.
 
 ## User Preferences
 The user prefers a dark mode theme with a dark navy and neon orange color scheme (matching the logo). Headings should use the 'Space Grotesk' font, and body text should use 'Inter'. Active navigation items in the sidebar should have an orange left border, and the sidebar itself should have a deep near-black background. Semantic colors should be used for status indicators (e.g., green for "Completed/Excellent") and CTAs/UI accents (orange/primary).
@@ -11,14 +11,16 @@ The application follows a mobile-first design philosophy.
 - **Frontend**: Built with React, Tailwind CSS, and Shadcn UI, utilizing Vite for tooling.
 - **Backend**: Implemented using Express.js.
 - **Database**: PostgreSQL, managed with Drizzle ORM.
-- **Authentication**: Supports email/password login and legacy Replit Auth, both managed via Passport sessions. User data includes `passwordHash` and is generated with `crypto.randomUUID()` on signup.
+- **Authentication**: Supports email/password login and Google OAuth, both managed via Passport sessions. User data includes `passwordHash` and is generated with `crypto.randomUUID()` on signup.
 - **Storage**: Replit Object Storage is used for tenant photo uploads.
+- **Domain**: tenant-track.com (custom domain), tenant-management-hub.replit.app (Replit domain)
+- **Logo**: TenantTrack hexagonal logo at `@assets/tenanttrack-logo-nobg.png`
 - **UI/UX**:
     - **Color Scheme**: Dark navy background (`--background: 226 32% 5%`) with neon orange primary (`--primary: 24 95% 55%`).
     - **Typography**: Space Grotesk for headings, Inter for body text.
     - **Layout**: Left sidebar navigation with active indicator, mobile-first responsiveness including a bottom navigation bar.
     - **Theming**: Always dark mode; no light mode toggle.
-    - **Logo**: Hexagonal node network emblem (orange/blue gradient).
+    - **Logo**: TenantTrack hexagonal node network emblem with checkmark.
 - **Core Features**:
     - QR code generation for properties, linking to public tenant maintenance request forms.
     - Tenant photo uploads for maintenance requests (up to 3 photos).
@@ -65,4 +67,4 @@ The application follows a mobile-first design philosophy.
 - **Passport.js**: Authentication middleware.
 - **Bcrypt**: For password hashing.
 - **Replit Object Storage**: For storing tenant uploaded images.
-- **Replit Auth**: For legacy owner authentication.
+- **Google OAuth**: For Google sign-in (requires GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET).

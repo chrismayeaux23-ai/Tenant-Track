@@ -140,7 +140,7 @@ export async function registerRoutes(
     await storage.createActivityLog({ requestId: req3.id, landlordId: DEMO_USER_ID, eventType: "job_completed", eventLabel: "Job Completed", details: "Compressor repaired. Tenant confirmed unit cooling correctly." });
     await storage.createActivityLog({ requestId: req3.id, landlordId: DEMO_USER_ID, eventType: "vendor_reviewed", eventLabel: "Vendor Reviewed", details: "4/5 overall rating" });
 
-    console.log("VendorTrust demo data seeded successfully");
+    console.log("TenantTrack demo data seeded successfully");
   }
 
   app.post("/api/demo-login", async (req: any, res) => {
@@ -1719,7 +1719,7 @@ export async function registerRoutes(
       const completed = requests.filter(r => r.status === 'Completed').length;
       const emergencies = requests.filter(r => r.urgency === 'Emergency').length;
 
-      // VendorTrust enhanced stats
+      // TenantTrack enhanced stats
       const vendorStats = await storage.getDashboardVendorStats(userId);
 
       res.json({

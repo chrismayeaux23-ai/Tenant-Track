@@ -6,7 +6,7 @@ import {
   Receipt, DollarSign, CalendarClock, Briefcase, BarChart2,
   ChevronRight, Columns3, Calendar
 } from "lucide-react";
-import logoIcon from "@assets/vendortrust-icon-nobg.png";
+import logoIcon from "@assets/tenanttrack-logo-nobg.png";
 import { Button } from "../ui/Button";
 import { TrialBanner } from "@/components/TrialBanner";
 
@@ -73,8 +73,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile top bar */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 bg-card border-b border-border sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2.5" data-testid="link-mobile-home">
-          <img src={logoIcon} alt="VendorTrust" className="h-8 w-8 rounded-lg object-contain" />
-          <span className="font-display font-bold text-lg tracking-tight">VendorTrust</span>
+          <img src={logoIcon} alt="TenantTrack" className="h-8 w-8 rounded-lg object-contain" />
+          <span className="font-display font-bold text-lg tracking-tight">TenantTrack</span>
         </Link>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -94,9 +94,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       >
         {/* Logo */}
         <div className="hidden md:flex items-center gap-3 px-5 py-5 border-b" style={{ borderColor: "hsl(226 22% 12%)" }}>
-          <img src={logoIcon} alt="VendorTrust" className="h-9 w-9 rounded-lg object-contain" />
+          <img src={logoIcon} alt="TenantTrack" className="h-9 w-9 rounded-lg object-contain" />
           <div>
-            <span className="font-display font-bold text-base text-foreground tracking-tight block leading-tight">VendorTrust</span>
+            <span className="font-display font-bold text-base text-foreground tracking-tight block leading-tight">TenantTrack</span>
             <span className="text-[10px] text-muted-foreground/70 font-medium tracking-wide">PROPERTY MAINTENANCE OS</span>
           </div>
         </div>

@@ -11,7 +11,7 @@ import {
   Camera, Bell, Wrench, BarChart2, MapPin, Printer,
   Sparkles, Link2, Calendar, Columns3, Globe, Send
 } from "lucide-react";
-import logoPng from "@assets/vendortrust-full-nobg.png";
+import logoPng from "@assets/tenanttrack-logo-nobg.png";
 
 const PLANS = [
   {
@@ -23,7 +23,7 @@ const PLANS = [
     features: [
       "QR maintenance system",
       "Vendor dispatch & tracking",
-      "VendorTrust scores (0–100)",
+      "TenantTrack scores (0–100)",
       "Vendor magic link portal",
       "Email notifications",
       "Photo uploads",
@@ -109,7 +109,7 @@ const SLIDES = [
     stepLabel: "Step 5 of 9",
     tabLabel: "Auto-Dispatch",
     title: "Smart Vendor Dispatch — Manual, Recommend, or Auto",
-    description: "Choose how you want to assign jobs. VendorTrust's dispatch engine scores every vendor based on trade match, trust score, emergency availability, workload, and more — then recommends the best fit or assigns them automatically.",
+    description: "Choose how you want to assign jobs. TenantTrack's dispatch engine scores every vendor based on trade match, trust score, emergency availability, workload, and more — then recommends the best fit or assigns them automatically.",
     bullets: [
       "Vendors ranked by trust score, trade match & availability",
       "Auto-assign mode dispatches your top vendor instantly",
@@ -139,7 +139,7 @@ const SLIDES = [
     stepLabel: "Step 7 of 9",
     tabLabel: "Scheduling",
     title: "Visual Scheduling Calendar with Conflict Detection",
-    description: "Schedule vendor visits on a full calendar view — week, day, or list. VendorTrust automatically detects scheduling conflicts and shows urgency at a glance so you never double-book a vendor.",
+    description: "Schedule vendor visits on a full calendar view — week, day, or list. TenantTrack automatically detects scheduling conflicts and shows urgency at a glance so you never double-book a vendor.",
     bullets: [
       "Week, day, and list views for full visibility",
       "Drag-and-drop scheduling with conflict warnings",
@@ -169,9 +169,9 @@ const SLIDES = [
     accent: "from-orange-500/20 to-primary/10",
     visual: "costs",
   },
-  // ── WHY VENDORTRUST ───────────────────────────────────
+  // ── WHY TENANTTRACK ───────────────────────────────────
   {
-    section: "Why VendorTrust?",
+    section: "Why TenantTrack?",
     stepLabel: "The Problem",
     tabLabel: "The Problem",
     title: "Vendor Chaos Is Silently Costing You",
@@ -186,13 +186,13 @@ const SLIDES = [
     visual: "why-pains",
   },
   {
-    section: "Why VendorTrust?",
+    section: "Why TenantTrack?",
     stepLabel: "The Solution",
     tabLabel: "The Solution",
     title: "Know Who to Call. Know When It's Done.",
-    description: "VendorTrust gives every contractor a performance score based on ratings, completion rate, and job history. Dispatch smarter, track every status change, and capture proof of completion — all in one place.",
+    description: "TenantTrack gives every contractor a performance score based on ratings, completion rate, and job history. Dispatch smarter, track every status change, and capture proof of completion — all in one place.",
     bullets: [
-      "VendorTrust scores eliminate the guesswork",
+      "TenantTrack scores eliminate the guesswork",
       "Auto-dispatch assigns your top vendor in seconds",
       "Vendors respond via magic link — no app needed",
       "Full activity log on every request — complete paper trail",
@@ -201,11 +201,11 @@ const SLIDES = [
     visual: "why-comparison",
   },
   {
-    section: "Why VendorTrust?",
+    section: "Why TenantTrack?",
     stepLabel: "Real Results",
     tabLabel: "Real Results",
     title: "Landlords Who Switch Don't Go Back",
-    description: "Once your vendor network is scored and your dispatch is automated, you stop firefighting and start scaling. VendorTrust pays for itself the first time you avoid a bad contractor repeat.",
+    description: "Once your vendor network is scored and your dispatch is automated, you stop firefighting and start scaling. TenantTrack pays for itself the first time you avoid a bad contractor repeat.",
     bullets: [
       "Set up in under 5 minutes, no IT help needed",
       "Tenants love it — scan, report, track",
@@ -235,7 +235,7 @@ const SLIDES = [
 const FEATURES = [
   {
     icon: ShieldCheck,
-    title: "VendorTrust Scores",
+    title: "TenantTrack Scores",
     desc: "Every vendor gets a 0–100 trust score based on ratings, completion rate, no-show history, and job tenure. Know who's reliable before you call.",
   },
   {
@@ -303,7 +303,7 @@ const TESTIMONIALS = [
     stars: 5,
   },
   {
-    quote: "I had a contractor no-show twice before VendorTrust flagged his record. That alone saved me from a third bad experience.",
+    quote: "I had a contractor no-show twice before TenantTrack flagged his record. That alone saved me from a third bad experience.",
     name: "Independent Landlord",
     role: "18 units in Austin, TX",
     stars: 5,
@@ -817,7 +817,7 @@ function SlideVisual({ type }: { type: string }) {
         </div>
         <div className="bg-primary/10 border border-primary/30 rounded-2xl p-3">
           <p className="text-[10px] font-bold text-primary mb-2.5 flex items-center gap-1">
-            <Check className="h-3 w-3" /> With VendorTrust
+            <Check className="h-3 w-3" /> With TenantTrack
           </p>
           <ul className="space-y-1.5">
             {[
@@ -997,7 +997,7 @@ export default function Landing() {
                   <ShieldCheck className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-foreground">Try VendorTrust</h3>
+                  <h3 className="text-xl font-bold text-foreground">Try TenantTrack</h3>
                   <p className="text-sm text-muted-foreground">Instant access — no signup needed</p>
                 </div>
               </div>
@@ -1031,8 +1031,8 @@ export default function Landing() {
       <nav className="fixed top-0 w-full z-50 glass-panel border-b-0">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={logoPng} alt="VendorTrust Logo" className="h-10 w-10 object-contain rounded-lg" />
-            <span className="font-display font-bold text-xl text-foreground">VendorTrust</span>
+            <img src={logoPng} alt="TenantTrack Logo" className="h-10 w-10 object-contain rounded-lg" />
+            <span className="font-display font-bold text-xl text-foreground">TenantTrack</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <Link href="/features" className="hover:text-foreground transition-colors" data-testid="nav-features">Features</Link>
@@ -1066,7 +1066,7 @@ export default function Landing() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-300">Built on Trust.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
-              Score every contractor. Auto-dispatch the best one. Track the job from assignment to completion. VendorTrust replaces spreadsheets, texts, and guesswork with a real dispatch command center.
+              Score every contractor. Auto-dispatch the best one. Track the job from assignment to completion. TenantTrack replaces spreadsheets, texts, and guesswork with a real dispatch command center.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Button size="lg" className="w-full sm:w-auto rounded-full text-lg shadow-xl shadow-primary/20 gap-2" onClick={() => window.location.href = '/login?signup=1'} data-testid="button-get-started">
@@ -1096,7 +1096,7 @@ export default function Landing() {
           <div className="flex-1 w-full max-w-2xl animate-in fade-in zoom-in duration-1000 flex items-center justify-center">
               <img
                 src={logoPng}
-                alt="VendorTrust"
+                alt="TenantTrack"
                 className="w-full max-w-sm drop-shadow-2xl rounded-3xl"
               />
           </div>
@@ -1278,7 +1278,7 @@ export default function Landing() {
               One Platform. Every Feature You Need.
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From QR tenant requests to auto-dispatch, vendor portals, scheduling calendars, and automated notifications — VendorTrust covers the full maintenance lifecycle.
+              From QR tenant requests to auto-dispatch, vendor portals, scheduling calendars, and automated notifications — TenantTrack covers the full maintenance lifecycle.
             </p>
           </div>
 
@@ -1306,7 +1306,7 @@ export default function Landing() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="p-8 rounded-3xl bg-red-500/5 border border-red-500/20">
-            <h3 className="text-xl font-bold mb-4 text-red-400">Without VendorTrust</h3>
+            <h3 className="text-xl font-bold mb-4 text-red-400">Without TenantTrack</h3>
             <ul className="space-y-3">
               {[
                 "Dispatching contractors by memory or gut feel",
@@ -1324,7 +1324,7 @@ export default function Landing() {
             </ul>
           </div>
           <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20">
-            <h3 className="text-xl font-bold mb-4 text-primary">With VendorTrust</h3>
+            <h3 className="text-xl font-bold mb-4 text-primary">With TenantTrack</h3>
             <ul className="space-y-3">
               {[
                 "Auto-dispatch engine picks the best vendor for you",
@@ -1349,7 +1349,7 @@ export default function Landing() {
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-4 text-sm px-4 py-1">Testimonials</Badge>
             <h2 className="text-4xl md:text-5xl font-display font-extrabold text-foreground mb-4">
-              Landlords Trust VendorTrust
+              Landlords Trust TenantTrack
             </h2>
           </div>
 
@@ -1458,7 +1458,7 @@ export default function Landing() {
               },
               {
                 q: "Can I use my existing vendors and contractors?",
-                a: "Yes. Add any contractor you already work with. VendorTrust will start tracking their reliability and building their trust score from the first job.",
+                a: "Yes. Add any contractor you already work with. TenantTrack will start tracking their reliability and building their trust score from the first job.",
               },
               {
                 q: "How does the vendor trust score work?",
@@ -1466,7 +1466,7 @@ export default function Landing() {
               },
               {
                 q: "What is auto-dispatch and how does it work?",
-                a: "Auto-dispatch scores every vendor in your network using trade match, trust score, workload, emergency availability, service area, and preferred status. You can let VendorTrust recommend the best vendor, or auto-assign them instantly. The vendor gets a magic link to accept, decline, or propose a new time — no app or login required.",
+                a: "Auto-dispatch scores every vendor in your network using trade match, trust score, workload, emergency availability, service area, and preferred status. You can let TenantTrack recommend the best vendor, or auto-assign them instantly. The vendor gets a magic link to accept, decline, or propose a new time — no app or login required.",
               },
               {
                 q: "Do vendors need to create an account?",
@@ -1477,8 +1477,8 @@ export default function Landing() {
                 a: "You'll be prompted to choose a plan. If you don't subscribe, your account is paused — your data is never deleted. No credit card is required to start the trial.",
               },
               {
-                q: "Is VendorTrust for large property companies?",
-                a: "Not at all. VendorTrust is designed for independent landlords managing 1 to 100+ units. No IT setup, no enterprise contracts — just log in and go.",
+                q: "Is TenantTrack for large property companies?",
+                a: "Not at all. TenantTrack is designed for independent landlords managing 1 to 100+ units. No IT setup, no enterprise contracts — just log in and go.",
               },
             ].map((item, i) => (
               <FaqItem key={i} question={item.q} answer={item.a} />
@@ -1513,8 +1513,8 @@ export default function Landing() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <img src={logoPng} alt="VendorTrust" className="h-10 w-10 rounded-lg" />
-                <span className="font-display font-bold text-xl text-foreground">VendorTrust</span>
+                <img src={logoPng} alt="TenantTrack" className="h-10 w-10 rounded-lg" />
+                <span className="font-display font-bold text-xl text-foreground">TenantTrack</span>
               </div>
               <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
                 The smart maintenance platform for landlords. QR-powered requests, vendor trust scores, and full job dispatch — all in one place.
@@ -1534,9 +1534,9 @@ export default function Landing() {
               <h4 className="font-bold text-sm mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <a href="mailto:support@vendortrust.com" className="flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-email">
+                  <a href="mailto:support@tenant-track.com" className="flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-email">
                     <Mail className="h-4 w-4" />
-                    support@vendortrust.com
+                    support@tenant-track.com
                   </a>
                 </li>
                 <li>
@@ -1549,7 +1549,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} VendorTrust. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} TenantTrack. All rights reserved.</p>
             <div className="flex gap-4">
               <Link href="/terms" className="hover:text-primary transition-colors" data-testid="link-terms">Terms & Conditions</Link>
               <Link href="/privacy" className="hover:text-primary transition-colors" data-testid="link-privacy">Privacy Policy</Link>

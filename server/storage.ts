@@ -505,7 +505,7 @@ export class DatabaseStorage implements IStorage {
 
     const totalSpent = costs.reduce((a, b) => a + b, 0);
 
-    // VendorTrust Score (0–100)
+    // TenantTrack Score (0–100)
     const trustScore = computeTrustScore({
       totalJobs: assignments.length,
       completedJobs: completed.length,
@@ -609,7 +609,7 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-// ── VendorTrust Score Formula ─────────────────────────────────────────────────
+// ── TenantTrack Score Formula ─────────────────────────────────────────────────
 // Score 0–100 based on: rating, completion rate, total jobs, preferred status
 export function computeTrustScore(params: {
   totalJobs: number;

@@ -103,7 +103,7 @@ export const vendors = pgTable("vendors", {
   licenseInfo: text("license_info"),
   insuranceInfo: text("insurance_info"),
   status: text("status").default("active"),
-  // VendorTrust additions
+  // TenantTrack additions
   emergencyAvailable: boolean("emergency_available").default(false),
   noShowCount: integer("no_show_count").default(0),
   lastJobCompletedAt: timestamp("last_job_completed_at"),
@@ -290,7 +290,7 @@ export const TRADE_CATEGORIES = [
 
 export type TradeCategory = typeof TRADE_CATEGORIES[number];
 
-// ── VendorTrust: Job Status Pipeline ──────────────────────────────────────────
+// ── TenantTrack: Job Status Pipeline ──────────────────────────────────────────
 export const JOB_STATUSES = [
   "needs-dispatch",
   "assigned",

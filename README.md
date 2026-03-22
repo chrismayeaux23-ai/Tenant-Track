@@ -1,12 +1,12 @@
-# VendorTrust
+# TenantTrack
 
-VendorTrust is a modern maintenance dispatch and vendor coordination platform built for landlords and property managers.
+TenantTrack is a modern maintenance dispatch and vendor coordination platform built for landlords and property managers.
 
 It replaces messy calls, texts, and spreadsheets with a structured system for automatically assigning vendors, managing schedules, tracking job progress, and handling maintenance operations end-to-end.
 
 ---
 
-## 🚀 What VendorTrust Solves
+## 🚀 What TenantTrack Solves
 
 Maintenance coordination is one of the most chaotic parts of property management.
 
@@ -16,7 +16,7 @@ Maintenance coordination is one of the most chaotic parts of property management
 * Follow-ups take too much time
 * There’s no clear system of record
 
-VendorTrust turns this into a **clear, automated workflow**:
+TenantTrack turns this into a **clear, automated workflow**:
 
 1. A request is created
 2. The best vendor is recommended or assigned
@@ -132,8 +132,8 @@ VendorTrust turns this into a **clear, automated workflow**:
 ## ⚡ Getting Started
 
 ```bash
-git clone https://github.com/your-username/vendortrust.git
-cd vendortrust
+git clone https://github.com/your-username/TenantTrack.git
+cd TenantTrack
 npm install
 npm run dev
 ```
@@ -165,7 +165,7 @@ Password: demo123
 
 ## 🎯 Product Vision
 
-VendorTrust is evolving into a fully automated maintenance dispatch system where:
+TenantTrack is evolving into a fully automated maintenance dispatch system where:
 
 * The right vendor is assigned instantly
 * Vendors respond without manual follow-up
@@ -176,7 +176,7 @@ VendorTrust is evolving into a fully automated maintenance dispatch system where
 
 ## 🚧 Current Status
 
-VendorTrust is in **private beta**.
+TenantTrack is in **private beta**.
 
 Core workflows are implemented and actively being refined based on real usage.
 
@@ -198,4 +198,4 @@ MIT License
 
 Christopher Mayeaux
 
-VendorTrust is a vertical SaaS platform built to modernize maintenance operations for landlords and property managers.
+TenantTrack is a vertical SaaS platform built to modernize maintenance operations for landlords and property managers.

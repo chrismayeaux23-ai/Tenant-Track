@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/use-auth";
 import { Link } from "wouter";
-import logoPng from "@assets/vendortrust-full-nobg.png";
+import logoPng from "@assets/tenanttrack-logo-nobg.png";
 
 const PLANS = [
   {
@@ -149,8 +149,8 @@ export default function Pricing() {
       <nav className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-30 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src={logoPng} alt="VendorTrust" className="h-8 w-8 rounded-lg object-contain" />
-            <span className="font-display font-bold text-lg text-foreground">VendorTrust</span>
+            <img src={logoPng} alt="TenantTrack" className="h-8 w-8 rounded-lg object-contain" />
+            <span className="font-display font-bold text-lg text-foreground">TenantTrack</span>
           </Link>
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
@@ -340,8 +340,8 @@ export default function Pricing() {
           </Button>
           <p className="text-xs text-muted-foreground mt-3">
             Questions? Email us at{" "}
-            <a href="mailto:support@vendortrust.com" className="text-primary hover:underline">
-              support@vendortrust.com
+            <a href="mailto:support@tenant-track.com" className="text-primary hover:underline">
+              support@tenant-track.com
             </a>
           </p>
         </div>
