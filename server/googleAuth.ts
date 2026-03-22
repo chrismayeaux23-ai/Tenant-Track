@@ -21,7 +21,7 @@ export function setupGoogleAuth(app: Express) {
   const replitDomain = process.env.REPLIT_DEPLOYMENT_URL || process.env.REPLIT_DEV_DOMAIN;
   const autoCallbackURL = replitDomain
     ? `https://${replitDomain}/api/auth/google/callback`
-    : "https://www.vendortrust.com/api/auth/google/callback";
+    : "https://tenant-track.com/api/auth/google/callback";
   const callbackURL = process.env.GOOGLE_CALLBACK_URL || autoCallbackURL;
 
   passport.use(
