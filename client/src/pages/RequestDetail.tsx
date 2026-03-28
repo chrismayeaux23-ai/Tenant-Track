@@ -391,6 +391,17 @@ export default function RequestDetail() {
                 <Clock className="h-3 w-3" />{formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}
               </p>
             </div>
+            {!assignmentLoading && !assignment && (
+              <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+                <Button className="gap-2 text-sm shadow-lg shadow-primary/20" onClick={() => autoDispatch.mutate()} disabled={autoDispatch.isPending} data-testid="button-header-auto-dispatch">
+                  {autoDispatch.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+                  Auto-Dispatch
+                </Button>
+                <Button variant="outline" className="gap-2 text-sm" onClick={() => setShowPicker(true)} data-testid="button-header-manual-assign">
+                  <ShieldCheck className="h-4 w-4 text-primary" />Assign Vendor
+                </Button>
+              </div>
+            )}
           </div>
 
           <div className="mt-4 pt-4 border-t border-border">
