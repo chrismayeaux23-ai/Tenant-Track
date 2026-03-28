@@ -1540,7 +1540,45 @@ export async function registerRoutes(
       if (request.status === "New") {
         await storage.updateRequestStatus(requestId, "In-Progress");
       }
+
+      const magicToken = generateMagicToken();
+      const slaMs = getSlaThreshold(request.urgency || "Medium");
+      const responseDeadline = new Date(Date.now() + slaMs);
+      const magicTokenExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      await storage.updateVendorAssignment(requestId, {
+        magicToken,
+        magicTokenExpiresAt,
+        responseDeadline,
+        vendorResponseStatus: "pending-response",
+        vendorLinkSentAt: new Date(),
+      });
+      assignment = await storage.getVendorAssignmentByRequest(requestId);
+
       const vendor = await storage.getVendor(assignment.vendorId);
+      if (vendor?.email && magicToken) {
+        const property = await storage.getProperty(request.propertyId);
+        sendVendorDispatchEmail({
+          vendorEmail: vendor.email,
+          vendorName: vendor.name,
+          propertyName: property?.name || "Property",
+          unitNumber: request.unitNumber || "",
+          issueType: request.issueType || "",
+          urgency: request.urgency || "",
+          description: request.description || "",
+          magicToken,
+        }).catch((err) => { console.error("Manual dispatch email error:", err); });
+
+        await storage.createVendorNotification({
+          assignmentId: assignment.id,
+          vendorId: vendor.id,
+          landlordId: userId,
+          notificationType: "dispatch",
+          channel: "email",
+        });
+
+        await storage.createActivityLog({ requestId, landlordId: userId, eventType: "vendor_notified", eventLabel: "Vendor Notified", details: `Magic link email sent to ${vendor.email}` });
+      }
+
       res.json({ assignment, vendor });
     } catch (err) {
       if (err instanceof z.ZodError) return res.status(400).json({ message: err.errors[0].message });
