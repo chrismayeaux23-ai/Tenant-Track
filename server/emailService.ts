@@ -34,7 +34,7 @@ async function getResendClient(): Promise<{ client: Resend; fromEmail: string } 
 
     return {
       client: new Resend(data.settings.api_key),
-      fromEmail: data.settings.from_email || process.env.EMAIL_FROM || 'TenantTrack <notifications@tenant-track.com>',
+      fromEmail: process.env.EMAIL_FROM || 'TenantTrack Dispatch <dispatch@tenant-track.com>',
     };
   } catch (err) {
     console.error('Failed to get Resend client:', err);
