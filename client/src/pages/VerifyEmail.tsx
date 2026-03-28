@@ -91,13 +91,18 @@ export default function VerifyEmail() {
     if (resendCooldown > 0) return;
     setResending(true);
     try {
-      await fetch("/api/auth/resend-verification", {
+      const res = await fetch("/api/auth/resend-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      setResendCooldown(60);
-      setError("");
+      if (res.ok) {
+        setResendCooldown(60);
+        setError("");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.message || "Failed to resend code.");
+      }
     } catch {
       setError("Failed to resend code.");
     } finally {
@@ -105,10 +110,11 @@ export default function VerifyEmail() {
     }
   };
 
-  if (!email) {
-    setLocation("/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!email) setLocation("/login");
+  }, [email, setLocation]);
+
+  if (!email) return null;
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
