@@ -198,11 +198,11 @@ const COMPARISON_ITEMS = [
 
 const COLOR_MAP: Record<string, { bg: string; text: string; border: string; lightBg: string }> = {
   primary: { bg: "bg-primary/10", text: "text-primary", border: "border-primary/20", lightBg: "bg-primary/5" },
-  blue: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20", lightBg: "bg-blue-500/5" },
-  rose: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20", lightBg: "bg-blue-500/5" },
+  blue: { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/20", lightBg: "bg-sky-500/5" },
+  rose: { bg: "bg-rose-500/10", text: "text-rose-400", border: "border-rose-500/20", lightBg: "bg-rose-500/5" },
   yellow: { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/20", lightBg: "bg-yellow-500/5" },
   purple: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/20", lightBg: "bg-purple-500/5" },
-  orange: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20", lightBg: "bg-blue-500/5" },
+  orange: { bg: "bg-primary/10", text: "text-primary", border: "border-primary/20", lightBg: "bg-primary/5" },
 };
 
 function FeatureVisual({ type, color }: { type: string; color: string }) {
@@ -230,7 +230,7 @@ function FeatureVisual({ type, color }: { type: string; color: string }) {
         <div className="grid grid-cols-4 gap-2 mb-4">
           {[
             { label: "Total", value: "24", color: "text-foreground" },
-            { label: "New", value: "8", color: "text-blue-400" },
+            { label: "New", value: "8", color: "text-primary" },
             { label: "Active", value: "12", color: "text-yellow-400" },
             { label: "Done", value: "4", color: "text-green-400" },
           ].map((s) => (
@@ -402,7 +402,7 @@ function FeatureVisual({ type, color }: { type: string; color: string }) {
             { name: "James T.", role: "General", assigned: 5 },
           ].map((staff, i) => (
             <div key={i} className="bg-card/80 rounded-xl p-4 flex items-center gap-3 border border-border">
-              <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 font-bold text-sm shrink-0">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm shrink-0">
                 {staff.name.charAt(0)}
               </div>
               <div className="flex-1 min-w-0">

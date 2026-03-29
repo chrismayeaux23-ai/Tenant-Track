@@ -15,7 +15,7 @@ const GUIDE_SECTIONS = [
     id: "getting-started",
     category: "Getting Started",
     icon: Building2,
-    color: "text-blue-400 bg-blue-400/10",
+    color: "text-primary bg-primary/10",
     steps: [
       {
         title: "1. Create Your Account",
@@ -403,7 +403,7 @@ export default function Guide() {
           </div>
         )}
 
-        <div className="mt-16 bg-gradient-to-br from-primary/10 to-blue-500/5 rounded-3xl p-10 border border-primary/20 text-center">
+        <div className="mt-16 bg-gradient-to-br from-primary/10 to-orange-500/5 rounded-3xl p-10 border border-primary/20 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">
             Ready to get started?
           </h2>

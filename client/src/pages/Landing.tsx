@@ -74,7 +74,7 @@ const SLIDES = [
     title: "Sign Up & Add Your Properties",
     description: "Create your account in seconds. Add your rental properties with name and address — each one instantly gets its own unique QR code.",
     bullets: ["Takes under 5 minutes to set up", "Add unlimited units per property", "No technical knowledge needed"],
-    accent: "from-blue-500/15 to-primary/10",
+    accent: "from-orange-500/15 to-primary/10",
     visual: "add-property",
   },
   {
@@ -84,7 +84,7 @@ const SLIDES = [
     title: "Get a Unique QR Code for Every Property",
     description: "Each property and unit gets its own scannable QR code. Print it, laminate it, and stick it near the door. Your tenants will always know where to report issues.",
     bullets: ["Print-ready flyer included, one click", "Works with iPhone and Android camera", "Each unit can have its own separate code"],
-    accent: "from-blue-500/20 to-primary/10",
+    accent: "from-orange-500/20 to-primary/10",
     visual: "qr-code",
   },
   {
@@ -134,7 +134,7 @@ const SLIDES = [
       "Add job notes and mark work as complete",
       "Links expire after 7 days; revoke or regenerate anytime",
     ],
-    accent: "from-blue-500/20 to-violet-500/10",
+    accent: "from-orange-500/20 to-amber-500/10",
     visual: "vendor-portal",
   },
   {
@@ -159,7 +159,7 @@ const SLIDES = [
     title: "Track Every Job from One Command Center",
     description: "Your dispatch board shows every open request with real-time status, vendor assignment, and a full activity timeline. Move jobs through the pipeline and capture proof of completion — all without leaving the dashboard.",
     bullets: ["Job pipeline: Assigned → Scheduled → In-Progress → Completed", "Full activity timeline with timestamps on every action", "Proof of completion with invoice, notes, and materials"],
-    accent: "from-blue-500/20 to-primary/10",
+    accent: "from-orange-500/20 to-primary/10",
     visual: "dashboard",
   },
   {
@@ -169,7 +169,7 @@ const SLIDES = [
     title: "Track Repair Costs & Stay Ahead of Maintenance",
     description: "Log the cost of every repair with vendor details. Set up recurring tasks — HVAC filters, smoke detector checks, fire extinguisher inspections — so nothing falls through the cracks. Export everything to CSV at tax time.",
     bullets: ["Log costs per repair with vendor info", "Recurring reminders for preventive tasks", "Export full cost history as CSV for taxes"],
-    accent: "from-blue-500/20 to-primary/10",
+    accent: "from-orange-500/20 to-primary/10",
     visual: "costs",
   },
   // ── WHY TENANTTRACK ───────────────────────────────────
@@ -230,7 +230,7 @@ const SLIDES = [
       "Upgrade or downgrade at any time",
       "All plans include QR codes, dashboard & email alerts",
     ],
-    accent: "from-blue-500/15 to-blue-400/10",
+    accent: "from-orange-500/15 to-orange-400/10",
     visual: "pricing",
   },
 ];
@@ -386,8 +386,8 @@ function SlideVisual({ type }: { type: string }) {
           <p className="font-bold text-sm">Sunset Apartments</p>
           <p className="text-xs text-muted-foreground">Unit 3A — QR Code</p>
         </div>
-        <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-          <QrCode className="h-4 w-4 text-blue-500" />
+        <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+          <QrCode className="h-4 w-4 text-primary" />
         </div>
       </div>
       <div className="bg-white rounded-2xl p-4 flex items-center justify-center mb-4">
@@ -517,7 +517,7 @@ function SlideVisual({ type }: { type: string }) {
           {[
             { unit: "3A", issue: "Plumbing", urgency: "High", status: "New", color: "text-orange-400", bg: "bg-orange-500/10" },
             { unit: "7B", issue: "Electrical", urgency: "Emergency", status: "In-Progress", color: "text-red-400", bg: "bg-red-500/10" },
-            { unit: "12C", issue: "HVAC", urgency: "Medium", status: "Completed", color: "text-blue-400", bg: "bg-blue-500/10" },
+            { unit: "12C", issue: "HVAC", urgency: "Medium", status: "Completed", color: "text-emerald-400", bg: "bg-emerald-500/10" },
           ].map(r => (
             <div key={r.unit} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-muted/50 border border-border">
               <div className={`h-6 w-6 rounded-lg ${r.bg} flex items-center justify-center shrink-0`}>
@@ -599,8 +599,8 @@ function SlideVisual({ type }: { type: string }) {
     <div className="space-y-2.5 w-full max-w-sm mx-auto">
       <div className="bg-card rounded-2xl border border-border p-4 shadow-xl">
         <div className="flex items-center gap-2 mb-4">
-          <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-            <Link2 className="h-4 w-4 text-blue-500" />
+          <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+            <Link2 className="h-4 w-4 text-primary" />
           </div>
           <div>
             <p className="text-xs font-bold">Vendor Job Portal</p>
@@ -673,8 +673,8 @@ function SlideVisual({ type }: { type: string }) {
                       <p className="text-[8px] font-bold text-orange-400 truncate">Plumbing</p>
                       <p className="text-[7px] text-muted-foreground">10 AM</p>
                     </div>
-                    <div className="p-1 rounded bg-blue-500/15 border border-blue-500/20">
-                      <p className="text-[8px] font-bold text-blue-400 truncate">HVAC</p>
+                    <div className="p-1 rounded bg-slate-500/15 border border-slate-500/20">
+                      <p className="text-[8px] font-bold text-slate-400 truncate">HVAC</p>
                       <p className="text-[7px] text-muted-foreground">2 PM</p>
                     </div>
                   </>
@@ -708,7 +708,7 @@ function SlideVisual({ type }: { type: string }) {
       <div className="grid grid-cols-3 gap-2">
         {[
           { label: "Total Spent", val: "$600", icon: DollarSign, color: "text-primary bg-primary/10" },
-          { label: "Avg/Request", val: "$150", icon: BarChart2, color: "text-blue-400 bg-blue-500/10" },
+          { label: "Avg/Request", val: "$150", icon: BarChart2, color: "text-primary bg-primary/10" },
           { label: "Repairs", val: "4", icon: Wrench, color: "text-yellow-400 bg-yellow-500/10" },
         ].map(s => (
           <div key={s.label} className="bg-card rounded-xl border border-border p-2.5 text-center">
@@ -855,7 +855,7 @@ function SlideVisual({ type }: { type: string }) {
       <div className="grid grid-cols-2 gap-2">
         {[
           { val: "< 5 min", label: "Setup time", color: "text-primary" },
-          { val: "60 sec", label: "Tenant report time", color: "text-blue-400" },
+          { val: "60 sec", label: "Tenant report time", color: "text-primary" },
           { val: "0", label: "Apps for tenants", color: "text-green-400" },
           { val: "100%", label: "Mobile friendly", color: "text-violet-400" },
         ].map(s => (
@@ -1005,7 +1005,7 @@ export default function Landing() {
             </div>
             <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight text-foreground leading-[1.1] mb-6">
               Vendor Dispatch <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-300">Built on Trust.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-300">Built on Trust.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
               Score every contractor. Auto-dispatch the best one. Track the job from assignment to completion. TenantTrack replaces spreadsheets, texts, and guesswork with a real dispatch command center.
@@ -1462,7 +1462,7 @@ export default function Landing() {
       </section>
 
       <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary/10 to-blue-500/5 rounded-3xl p-12 md:p-16 border border-primary/20">
+        <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary/10 to-orange-500/5 rounded-3xl p-12 md:p-16 border border-primary/20">
           <h2 className="text-3xl md:text-5xl font-display font-extrabold text-foreground mb-4">
             Stop chasing vendors.<br className="hidden sm:block" /> Start managing maintenance.
           </h2>

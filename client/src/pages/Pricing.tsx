@@ -15,8 +15,8 @@ const PLANS = [
     description: "For small landlords managing 1–5 units",
     price: 29,
     icon: Building2,
-    color: "text-blue-400",
-    bg: "bg-blue-400/10",
+    color: "text-primary",
+    bg: "bg-primary/10",
     features: [
       { label: "QR maintenance system", included: true },
       { label: "Tenant request portal", included: true },
@@ -324,7 +324,7 @@ export default function Pricing() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 py-12 bg-gradient-to-br from-primary/10 to-blue-500/5 rounded-3xl border border-primary/20 px-8">
+        <div className="text-center mt-16 py-12 bg-gradient-to-br from-primary/10 to-orange-500/5 rounded-3xl border border-primary/20 px-8">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3">
             Ready to bring order to your maintenance chaos?
           </h2>
