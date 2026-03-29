@@ -1429,6 +1429,38 @@ export default function Landing() {
         </div>
       </section>
 
+      <section className="py-24 px-4 sm:px-6" id="about" data-testid="section-about">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-card border border-border rounded-3xl p-8 md:p-12">
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+              <div className="shrink-0">
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Users className="h-8 w-8 text-primary" />
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-2">About the Founder</p>
+                <h2 className="text-2xl md:text-3xl font-display font-extrabold text-foreground mb-4">
+                  Why I Built TenantTrack
+                </h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    I'm Christopher Mayeaux, and TenantTrack was born from a problem I kept hearing about over and over again. Every landlord and property manager I talked to said the same thing: <span className="text-foreground font-medium">maintenance is the most painful and expensive part of the job.</span>
+                  </p>
+                  <p>
+                    But when I dug deeper, the real headache wasn't the maintenance itself — it was the <span className="text-foreground font-medium">vendor coordination.</span> Dispatching the right contractor, chasing down progress updates, waiting on completion proof, tracking invoices — it was all scattered across texts, phone calls, emails, and spreadsheets. Things fell through the cracks constantly.
+                  </p>
+                  <p>
+                    So I built TenantTrack to fix exactly that. One place to dispatch vendors, track every job from start to finish, and hold contractors accountable with trust scores — no more guesswork, no more chasing. Just a clean, simple system that actually works.
+                  </p>
+                </div>
+                <p className="mt-6 text-sm font-semibold text-foreground">— Christopher Mayeaux, Founder</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary/10 to-blue-500/5 rounded-3xl p-12 md:p-16 border border-primary/20">
           <h2 className="text-3xl md:text-5xl font-display font-extrabold text-foreground mb-4">
